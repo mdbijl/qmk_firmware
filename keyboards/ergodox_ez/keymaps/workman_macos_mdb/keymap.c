@@ -12,7 +12,10 @@
 enum custom_keycodes {
   JJ_ALL = SAFE_RANGE,
   JJ_NONE,
+  JJ_UNDO,
+  JJ_REDO,
   JJ_COPY,
+  JJ_CUT,
   JJ_PASTE,
   JJ_MATCH,
   JJ_MPASTE, // multi paste via Alfred
@@ -25,43 +28,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |   =    |   1  |   2  |   3  |   4  |   5  |      |           |      |   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Del    |   Q  |   D  |   R  |   W  |   B  |      |           |      |   J  |   F  |   U  |   P  |      |   \    |
+ * | Tab    |   Q  |   D  |   R  |   W  |   B  |      |           |      |   J  |   F  |   U  |   P  |      |   \    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | BkSp   |   A  |   S  |   H  |   T  |   G  |------|           |------|   Y  |   N  |   E  |   O  |   I  |  LGui  |
+ * |        |   A  |   S  |   H  |   T  |   G  |------|           |------|   Y  |   N  |   E  |   O  |   I  |  LGui  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   M  |   C  |   V  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
+ * |        |   Z  |   X  |   M  |   C  |   V  |      |           |      |   N  |   M  |   ,  |   .  |   /  |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |Grv/L1|  All |AltShf| Left | Right|                                       |  Up  | Down |   [  |   ]  | ~L1  |
+ *   |      |  All | Undo | Left | Right|                                       |  Up  | Down | Home |  End |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | App  | LGui |       | Alt  |Ctrl/Esc|
- *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | Home |       | PgUp |        |      |
- *                                 | Space|Backsp|------|       |------|  Tab   |Enter |
- *                                 |      |ace   | End  |       | PgDn |        |      |
- *                                 `--------------------'       `----------------------'
+ *                                        | LCtl | LGui |       | RAlt | RGui |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      | Home |       | PgUp |      |      |
+ *                                 |Backsp|LShift|------|       |------|Enter |Space |
+ *                                 |   ace|      | End  |       | PgDn |      |      |
+ *                                 `--------------------'       `--------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_TRNS,
-        KC_DELT,        KC_Q,         KC_D,   KC_R,   KC_W,   KC_B,   KC_TRNS,
-        KC_BSPC,        KC_A,         KC_S,   KC_H,   KC_T,   KC_G,
-        KC_LSFT,        KC_Z,         KC_X,   KC_M,   KC_C,   KC_V,   KC_TRNS,
-        LT(SYMB,KC_GRV),KC_QUOT,      LALT(KC_LSFT),  KC_LEFT,KC_RGHT,
-                                              ALT_T(KC_APP),  KC_LGUI,
+        KC_TAB,         KC_Q,         KC_D,   KC_R,   KC_W,   KC_B,   KC_TRNS,
+        KC_TRNS,        KC_A,         KC_S,   KC_H,   KC_T,   KC_G,
+        KC_TRNS,        KC_Z,         KC_X,   KC_M,   KC_C,   KC_V,   KC_TRNS,
+        KC_TRNS,        JJ_ALL,       JJ_UNDO,KC_LEFT,KC_RGHT,
+                                              KC_LGUI,        KC_LALT,
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
              KC_TRNS,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
              KC_TRNS,     KC_J,   KC_F,   KC_U,   KC_P,   KC_P,             KC_BSLS,
                           KC_Y,   KC_N,   KC_O,   KC_I,   KC_U,             KC_LGUI,
-             KC_TRNS,     KC_K,   KC_L,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),   KC_RSFT,
-                                  KC_UP,  KC_DOWN,KC_LBRC,KC_RBRC,          KC_FN1,
-             KC_LALT,        CTL_T(KC_ESC),
-             KC_PGUP,
-             KC_PGDN,KC_TAB, KC_ENT
+             KC_TRNS,     KC_K,   KC_L,   KC_COMM,KC_DOT, KC_SLSH,          KC_TRNS,
+                                  KC_UP,  KC_DOWN,KC_HOME,KC_END,           KC_TRNS,
+             KC_LALT,         KC_LGUI,
+             JJ_COPY,
+             JJ_PASTE,KC_ENT, KC_SPC
     ),
 /* Keymap 1: Symbol Layer
  *
@@ -157,18 +160,48 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case JJ_UNDO:
+      if (!record->event.pressed) {
+        SEND_STRING(SS_LGUI("z"));
+      }
+      return false;
+      break;
+    case JJ_REDO:
+      if (!record->event.pressed) {
+        SEND_STRING(SS_LGUI(SS_LSFT("z")));
+      }
+      return false;
+      break;
+    case JJ_CUT:
+      if (!record->event.pressed) {
+        SEND_STRING(SS_LGUI("x"));
+      }
+      return false;
+      break;
     case JJ_PASTE:
       if (!record->event.pressed) {
         SEND_STRING(SS_LGUI("v"));
       }
       return false;
       break;
-    // case JJ_MATCH:
-    //   if (!record->event.pressed) {
-    //     SEND_STRING(SS_LGUI("v"));
-    //   }
-    //   return false;
-    //   break;
+    case JJ_MATCH:
+      if (!record->event.pressed) {
+        SEND_STRING(SS_LGUI(SS_LSFT("v")));
+      }
+      return false;
+      break;
+      case JJ_ALL:
+        if (!record->event.pressed) {
+          SEND_STRING(SS_LGUI("a"));
+        }
+        return false;
+        break;
+        case JJ_NONE:
+          if (!record->event.pressed) {
+            SEND_STRING(SS_LGUI(SS_LSFT("a")));
+          }
+          return false;
+          break;
   }
   return true;
 }

@@ -44,11 +44,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |      | Copy | Paste| Left | Right|                                       |  Up  | Down | Home |  End |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | LGui | LGui |       | RAlt | RGui |
+ *                                        | LGui | LAlt |       | RAlt | RGui |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      | Home |       | PgUp |      |      |
+ *                                 |      |      |      |       |      |      |      |
  *                                 |Backsp|LShift|------|       |------|Enter |Space |
- *                                 |   ace|      | End  |       | PgDn |      |      |
+ *                                 |   ace|      | LCtl |       | RCtl |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
@@ -61,17 +61,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MO(SYMB),       KC_Z,         KC_X,    KC_M,   KC_C,   LT1_V,  _______,
         _______,        JJ_COPY,      JJ_PASTE,KC_LEFT,KC_RGHT,
                                                KC_LGUI,        KC_LALT,
-                                                               KC_HOME,
-                                                KC_SPC,KC_BSPC,KC_END,
+                                                               _______,
+                                                KC_SPC,KC_BSPC,KC_LCTL,
         // right hand
              _______,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_GRV,
              _______,     KC_J,   KC_F,   KC_U,   KC_P,   KC_P,             KC_BSLS,
                           KC_Y,   KC_N,   KC_O,   KC_I,   KC_U,             KC_QUOT,
              _______,     LT1_K,  KC_L,   KC_COMM,KC_DOT, KC_SLSH,          MO(SYMB),
                                   KC_UP,  KC_DOWN,KC_HOME,KC_END,           _______,
-             KC_LALT,         KC_RGUI,
-             JJ_COPY,
-             JJ_PASTE,KC_ENT, KC_SPC
+             KC_RALT,         KC_RGUI,
+             _______,
+             KC_RCTL,KC_ENT, KC_SPC
     ),
 /* Keymap 1: Symbol Layer
  *

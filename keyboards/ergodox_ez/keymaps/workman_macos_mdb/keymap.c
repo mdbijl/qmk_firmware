@@ -9,6 +9,12 @@
 #define LT1_K LT(SYMB,KC_K)
 #define LT1_V LT(SYMB,KC_V)
 
+#define SH_ESC LSFT(KC_ESCAPE)
+#define SH_ENT RSFT(KC_ENTER)
+
+#define CTL_Z  LCTL(KC_Z)
+#define CTL_SL RCTL(KC_SLASH)
+
 enum layers {
   BASE = 1,
   SYMB,
@@ -47,8 +53,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        | LGui | LAlt |       | RAlt | RGui |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
- *                                 |Backsp|LShift|------|       |------|Enter |Space |
- *                                 |   ace|      | LCtl |       | RCtl |      |      |
+ *                                 |Backsp|LShift|------|       |------|RShift|Space |
+ *                                 |   ace| /ESC | LCtl |       | RCtl |/Enter|      |
  *                                 `--------------------'       `--------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
@@ -58,20 +64,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,         KC_1,         KC_2,    KC_3,   KC_4,   KC_5,   _______,
         KC_TAB,         KC_Q,         KC_D,    KC_R,   KC_W,   KC_B,   _______,
         MO(FUNC),       KC_A,         KC_S,    KC_H,   KC_T,   KC_G,
-        MO(SYMB),       KC_Z,         KC_X,    KC_M,   KC_C,   LT1_V,  _______,
+        MO(SYMB),       CTL_Z,        KC_X,    KC_M,   KC_C,   LT1_V,  _______,
         _______,        JJ_COPY,      JJ_PASTE,KC_LEFT,KC_RGHT,
                                                KC_LGUI,        KC_LALT,
                                                                _______,
-                                                KC_SPC,KC_BSPC,KC_LCTL,
+                                               KC_BSPC,SH_ESC, KC_LCTL,
         // right hand
              _______,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_GRV,
              _______,     KC_J,   KC_F,   KC_U,   KC_P,   KC_P,             KC_BSLS,
                           KC_Y,   KC_N,   KC_O,   KC_I,   KC_U,             KC_QUOT,
-             _______,     LT1_K,  KC_L,   KC_COMM,KC_DOT, KC_SLSH,          MO(SYMB),
+             _______,     LT1_K,  KC_L,   KC_COMM,KC_DOT, CTL_SL,           MO(SYMB),
                                   KC_UP,  KC_DOWN,KC_HOME,KC_END,           _______,
              KC_RALT,         KC_RGUI,
              _______,
-             KC_RCTL,KC_ENT, KC_SPC
+             KC_RCTL,SH_ENT, KC_SPC
     ),
 /* Keymap 1: Symbol Layer
  *

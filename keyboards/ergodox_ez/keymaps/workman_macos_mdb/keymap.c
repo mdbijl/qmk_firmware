@@ -17,6 +17,8 @@
 
 #define MB_UNDO LGUI(KC_Z)
 #define MB_REDO LGUI(LSFT(KC_Z))
+#define MB_ALL LGUI(KC_A)
+#define MB_NONE LGUI(LSFT(KC_A))
 
 enum layers {
   BASE = 1,
@@ -26,8 +28,7 @@ enum layers {
 };
 
 enum macros {
-  JJ_ALL = SAFE_RANGE,
-  JJ_NONE,
+  JJ_MACRO = SAFE_RANGE,
   JJ_COPY,
   JJ_CUT,
   JJ_PASTE,
@@ -107,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, KC_EXLM, KC_AT,    KC_HASH, KC_DLR,  KC_PERC, _______,
        _______, _______, _______,  KC_EQL,  KC_UNDS, _______, _______,
        _______, KC_LBRC, KC_RBRC,  KC_LCBR, KC_RCBR, _______,
-       _______, MB_UNDO, JJ_ALL,   KC_LT,   KC_GT,   KC_QUES, _______,
+       _______, MB_UNDO, MB_ALL,   KC_LT,   KC_GT,   KC_QUES, _______,
        _______, JJ_CUT,  JJ_MATCH, _______, _______,
                                             _______, _______,
                                                      _______,
@@ -131,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |------|           |------|      |      |      |      |      |   F13  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        | Redo |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |        | Redo | None |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -150,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    _______, _______, _______, _______, _______, _______, _______,
    _______, _______, _______, _______, _______, _______,
    _______, _______, _______, _______, _______, _______, _______,
-   _______, MB_REDO, _______, _______, _______,
+   _______, MB_REDO, MB_NONE, _______, _______,
                                        _______, _______,
                                                 _______,
                               _______, _______, _______,
@@ -234,18 +235,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-      case JJ_ALL:
-        if (!record->event.pressed) {
-          SEND_STRING(SS_LGUI("a"));
-        }
-        return false;
-        break;
-        case JJ_NONE:
-          if (!record->event.pressed) {
-            SEND_STRING(SS_LGUI(SS_LSFT("a")));
-          }
-          return false;
-          break;
   }
   return true;
 }

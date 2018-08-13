@@ -15,6 +15,9 @@
 #define CTL_Z  LCTL(KC_Z)
 #define CTL_SL RCTL(KC_SLASH)
 
+#define MB_UNDO LGUI(KC_Z)
+#define MB_REDO LGUI(LSFT(KC_Z))
+
 enum layers {
   BASE = 1,
   SYMB,
@@ -22,11 +25,9 @@ enum layers {
   MDIA
 };
 
-enum custom_keycodes {
+enum macros {
   JJ_ALL = SAFE_RANGE,
   JJ_NONE,
-  JJ_UNDO,
-  JJ_REDO,
   JJ_COPY,
   JJ_CUT,
   JJ_PASTE,
@@ -88,9 +89,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
      * |        |   [  |   ]  |   {  |   }  |      |------|           |------|   (  |   )  |      |      |      |    "   |
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-     * |        |      |      |      |      |      |      |           |      |      |      |      |      |   ?  |        |
+     * |        | Undo | s-All|      |      |      |      |           |      |      |      |   <  |  >   |   ?  |        |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-     *   |      |      |      |      |      |                                       |      |      |      |      |      |
+     *   |      | Cut  | Match|      |      |                                       |      |      |      |      |      |
      *   `----------------------------------'                                       `----------------------------------'
      *                                        ,-------------.       ,-------------.
      *                                        |      |      |       |      |      |
@@ -103,14 +104,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // SYMBOLS
 [SYMB] = LAYOUT_ergodox(
        // left hand
-       _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______,
-       _______, _______, _______, KC_EQL,  KC_UNDS, _______, _______,
-       _______, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______,
-       _______, _______, _______, KC_LT,   KC_GT,   KC_QUES, _______,
-       _______, _______, _______, _______, _______,
-                                           _______, _______,
-                                                    _______,
-                                  _______, _______, _______,
+       _______, KC_EXLM, KC_AT,    KC_HASH, KC_DLR,  KC_PERC, _______,
+       _______, _______, _______,  KC_EQL,  KC_UNDS, _______, _______,
+       _______, KC_LBRC, KC_RBRC,  KC_LCBR, KC_RCBR, _______,
+       _______, MB_UNDO, JJ_ALL,   KC_LT,   KC_GT,   KC_QUES, _______,
+       _______, JJ_CUT,  JJ_MATCH, _______, _______,
+                                            _______, _______,
+                                                     _______,
+                                   _______, _______, _______,
        // right hand
        _______, KC_CIRC, KC_AMPR,KC_ASTR, KC_LPRN,  KC_RPRN, KC_TILD,
        _______, _______, KC_PLUS, KC_MINS, _______, KC_COLN, KC_PIPE,
@@ -130,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |------|           |------|      |      |      |      |      |   F13  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |        | Redo |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -149,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    _______, _______, _______, _______, _______, _______, _______,
    _______, _______, _______, _______, _______, _______,
    _______, _______, _______, _______, _______, _______, _______,
-   _______, _______, _______, _______, _______,
+   _______, MB_REDO, _______, _______, _______,
                                        _______, _______,
                                                 _______,
                               _______, _______, _______,
@@ -206,24 +207,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-// Defines actions for my custom keycodes
+// Defines actions for my custom macros
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case JJ_COPY:
       if (!record->event.pressed) {
         SEND_STRING(SS_LGUI("c"));
-      }
-      return false;
-      break;
-    case JJ_UNDO:
-      if (!record->event.pressed) {
-        SEND_STRING(SS_LGUI("z"));
-      }
-      return false;
-      break;
-    case JJ_REDO:
-      if (!record->event.pressed) {
-        SEND_STRING(SS_LGUI(SS_LSFT("z")));
       }
       return false;
       break;

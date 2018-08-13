@@ -15,10 +15,18 @@
 #define CTL_Z  LCTL(KC_Z)
 #define CTL_SL RCTL(KC_SLASH)
 
-#define MB_UNDO LGUI(KC_Z)
-#define MB_REDO LGUI(LSFT(KC_Z))
-#define MB_ALL LGUI(KC_A)
-#define MB_NONE LGUI(LSFT(KC_A))
+#define MB_COPY   LGUI(KC_C)
+#define MB_CUT    LGUI(KC_X)
+#define MB_PASTE  LGUI(KC_V)
+#define MB_MATCH  LSFT(LGUI(KC_V))
+
+#define MB_UNDO   LGUI(KC_Z)
+#define MB_REDO   LSFT(LGUI(KC_Z))
+#define MB_ALL    LGUI(KC_A)
+#define MB_NONE   LSFT(LGUI(KC_A))
+
+#define MB_SNIP   HYPR(KC_C)
+#define MB_MPAST  LCTL(LSFT(LGUI(KC_C)))
 
 enum layers {
   BASE = 1,
@@ -29,12 +37,7 @@ enum layers {
 
 enum macros {
   JJ_MACRO = SAFE_RANGE,
-  JJ_COPY,
-  JJ_CUT,
-  JJ_PASTE,
-  JJ_MATCH,
-  JJ_MPASTE, // multi paste via Alfred
-  JJ_SNIP    // snippets via Alfred
+  JJ_OTHER
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -67,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,         KC_Q,         KC_D,    KC_R,   KC_W,   KC_B,   _______,
         MO(FUNC),       KC_A,         KC_S,    KC_H,   KC_T,   KC_G,
         MO(SYMB),       CTL_Z,        KC_X,    KC_M,   KC_C,   LT1_V,  _______,
-        _______,        JJ_COPY,      JJ_PASTE,KC_LEFT,KC_RGHT,
+        _______,        MB_COPY,      MB_PASTE,KC_LEFT,KC_RGHT,
                                                KC_LGUI,        KC_LALT,
                                                                _______,
                                                KC_BSPC,SH_ESC, KC_LCTL,
@@ -109,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, _______, _______,  KC_EQL,  KC_UNDS, _______, _______,
        _______, KC_LBRC, KC_RBRC,  KC_LCBR, KC_RCBR, _______,
        _______, MB_UNDO, MB_ALL,   KC_LT,   KC_GT,   KC_QUES, _______,
-       _______, JJ_CUT,  JJ_MATCH, _______, _______,
+       _______, MB_CUT,  MB_MATCH, _______, _______,
                                             _______, _______,
                                                      _______,
                                    _______, _______, _______,
@@ -134,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        | Redo | None |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   |      |Snipts|Mpaste|      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -144,14 +147,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-// SYMBOLS
-[SYMB] = LAYOUT_ergodox(
+// FUNCTION
+[FUNC] = LAYOUT_ergodox(
    // left hand
-   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______,
-   _______, _______, _______, _______, _______, _______, _______,
-   _______, _______, _______, _______, _______, _______,
-   _______, _______, _______, _______, _______, _______, _______,
-   _______, MB_REDO, MB_NONE, _______, _______,
+   _______, KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,   _______,
+   _______, _______, _______,  _______, _______, _______, _______,
+   _______, _______, _______,  _______, _______, _______,
+   _______, MB_NONE, MB_NONE,  _______, _______, _______, _______,
+   _______, MB_SNIP, MB_MPAST, _______, _______,
                                        _______, _______,
                                                 _______,
                               _______, _______, _______,
@@ -211,27 +214,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Defines actions for my custom macros
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case JJ_COPY:
+    case JJ_MACRO:
       if (!record->event.pressed) {
         SEND_STRING(SS_LGUI("c"));
-      }
-      return false;
-      break;
-    case JJ_CUT:
-      if (!record->event.pressed) {
-        SEND_STRING(SS_LGUI("x"));
-      }
-      return false;
-      break;
-    case JJ_PASTE:
-      if (!record->event.pressed) {
-        SEND_STRING(SS_LGUI("v"));
-      }
-      return false;
-      break;
-    case JJ_MATCH:
-      if (!record->event.pressed) {
-        SEND_STRING(SS_LGUI(SS_LSFT("v")));
       }
       return false;
       break;

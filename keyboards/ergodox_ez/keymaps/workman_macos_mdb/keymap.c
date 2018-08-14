@@ -9,8 +9,8 @@
 #define SH_ESC LSFT_T(KC_ESCAPE)
 #define SH_ENT RSFT_T(KC_ENTER)
 
-#define CTL_Z  LCTL(KC_Z)
-#define CTL_SL RCTL(KC_SLASH)
+#define CTL_Z  LCTL_T(KC_Z)
+#define CTL_SL RCTL_T(KC_SLASH)
 
 #define MB_COPY   LGUI(KC_C)
 #define MB_CUT    LGUI(KC_X)

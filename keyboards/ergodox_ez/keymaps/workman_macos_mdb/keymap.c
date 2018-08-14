@@ -27,7 +27,7 @@
 #define MB_MPAST  LCTL(LSFT(LGUI(KC_C)))
 
 enum layers {
-  BASE = 1,
+  BASE = 0,
   SYMB,
   FUNC,
   MDIA

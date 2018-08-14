@@ -3,12 +3,11 @@
 #include "action_layer.h"
 #include "version.h"
 
-#define _______ KC_TRNS
 #define LT1_K LT(SYMB,KC_K)
 #define LT1_V LT(SYMB,KC_V)
 
-#define SH_ESC LSFT(KC_ESCAPE)
-#define SH_ENT RSFT(KC_ENTER)
+#define SH_ESC LSFT_T(KC_ESCAPE)
+#define SH_ENT RSFT_T(KC_ENTER)
 
 #define CTL_Z  LCTL(KC_Z)
 #define CTL_SL RCTL(KC_SLASH)
@@ -67,22 +66,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_ESC,         KC_1,         KC_2,    KC_3,   KC_4,   KC_5,   _______,
-        KC_TAB,         KC_Q,         KC_D,    KC_R,   KC_W,   KC_B,   _______,
+        KC_ESC,         KC_1,         KC_2,    KC_3,   KC_4,   KC_5,   XXXXXXX,
+        KC_TAB,         KC_Q,         KC_D,    KC_R,   KC_W,   KC_B,   XXXXXXX,
         MO(FUNC),       KC_A,         KC_S,    KC_H,   KC_T,   KC_G,
-        MO(SYMB),       CTL_Z,        KC_X,    KC_M,   KC_C,   LT1_V,  _______,
-        _______,        MB_COPY,      MB_PASTE,KC_LEFT,KC_RGHT,
+        MO(SYMB),       CTL_Z,        KC_X,    KC_M,   KC_C,   LT1_V,  XXXXXXX,
+        XXXXXXX,        MB_COPY,      MB_PASTE,KC_LEFT,KC_RGHT,
                                                KC_LGUI,        KC_LALT,
-                                                               _______,
+                                                               XXXXXXX,
                                                KC_BSPC,SH_ESC, KC_LCTL,
         // right hand
-             _______,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_GRV,
-             _______,     KC_J,   KC_F,   KC_U,   KC_P,   KC_P,             KC_BSLS,
-                          KC_Y,   KC_N,   KC_O,   KC_I,   KC_U,             KC_QUOT,
-             _______,     LT1_K,  KC_L,   KC_COMM,KC_DOT, CTL_SL,           MO(SYMB),
-                                  KC_UP,  KC_DOWN,KC_HOME,KC_END,           _______,
+             XXXXXXX,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_GRV,
+             XXXXXXX,     KC_J,   KC_F,   KC_U,   KC_P,   KC_P,             KC_BSLS,
+                          KC_Y,   KC_N,   KC_E,   KC_O,   KC_I,             KC_QUOT,
+             XXXXXXX,     LT1_K,  KC_L,   KC_COMM,KC_DOT, CTL_SL,           MO(SYMB),
+                                  KC_UP,  KC_DOWN,KC_HOME,KC_END,           XXXXXXX,
              KC_RALT,         KC_RGUI,
-             _______,
+             XXXXXXX,
              KC_RCTL,SH_ENT, KC_SPC
     ),
     /* Keymap 1: Symbol Layer
@@ -109,23 +108,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // SYMBOLS
 [SYMB] = LAYOUT_ergodox(
        // left hand
-       _______, KC_EXLM, KC_AT,    KC_HASH, KC_DLR,  KC_PERC, _______,
-       _______, _______, _______,  KC_EQL,  KC_UNDS, _______, _______,
-       _______, KC_LBRC, KC_RBRC,  KC_LCBR, KC_RCBR, _______,
-       _______, MB_UNDO, MB_ALL,   KC_LT,   KC_GT,   KC_QUES, _______,
-       _______, MB_CUT,  MB_MATCH, _______, _______,
-                                            _______, _______,
-                                                     _______,
-                                   _______, _______, _______,
+       XXXXXXX, KC_EXLM, KC_AT,    KC_HASH, KC_DLR,  KC_PERC, XXXXXXX,
+       XXXXXXX, XXXXXXX, XXXXXXX,  KC_EQL,  KC_UNDS, XXXXXXX, XXXXXXX,
+       XXXXXXX, KC_LBRC, KC_RBRC,  KC_LCBR, KC_RCBR, XXXXXXX,
+       XXXXXXX, MB_UNDO, MB_ALL,   KC_LT,   KC_GT,   KC_QUES, XXXXXXX,
+       XXXXXXX, MB_CUT,  MB_MATCH, XXXXXXX, XXXXXXX,
+                                            XXXXXXX, XXXXXXX,
+                                                     XXXXXXX,
+                                   XXXXXXX, XXXXXXX, XXXXXXX,
        // right hand
-       _______, KC_CIRC, KC_AMPR,KC_ASTR, KC_LPRN,  KC_RPRN, KC_TILD,
-       _______, _______, KC_PLUS, KC_MINS, _______, KC_COLN, KC_PIPE,
-                _______, KC_LPRN, KC_RPRN, _______, _______, KC_DQT,
-       _______, _______, _______, _______, _______, _______, _______,
-                         _______, _______, _______, _______, _______,
-       _______, _______,
-       _______,
-       _______, _______, _______
+       XXXXXXX, KC_CIRC, KC_AMPR,KC_ASTR, KC_LPRN,  KC_RPRN, KC_TILD,
+       XXXXXXX, XXXXXXX, KC_PLUS, KC_MINS, XXXXXXX, KC_COLN, KC_PIPE,
+                XXXXXXX, KC_LPRN, KC_RPRN, XXXXXXX, XXXXXXX, KC_DQT,
+       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX, XXXXXXX,
+       XXXXXXX,
+       XXXXXXX, XXXXXXX, XXXXXXX
 ),
 /* Keymap 2: Function Layer
  *
@@ -151,23 +150,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // FUNCTION
 [FUNC] = LAYOUT_ergodox(
    // left hand
-   _______, KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,   _______,
-   _______, _______, _______,  _______, _______, _______, _______,
-   _______, _______, _______,  _______, _______, _______,
-   _______, MB_NONE, MB_NONE,  _______, _______, _______, _______,
-   _______, MB_SNIP, MB_MPAST, _______, _______,
-                                       _______, _______,
-                                                _______,
-                              _______, _______, _______,
+   XXXXXXX, KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,   XXXXXXX,
+   XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,
+   XXXXXXX, MB_NONE, MB_NONE,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   XXXXXXX, MB_SNIP, MB_MPAST, XXXXXXX, XXXXXXX,
+                                       XXXXXXX, XXXXXXX,
+                                                XXXXXXX,
+                              XXXXXXX, XXXXXXX, XXXXXXX,
    // right hand
-   _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-   _______, _______, _______, _______, _______, _______, KC_F12,
-            _______, _______, _______, _______, _______, KC_F13,
-   _______, _______, _______, _______, _______, _______, _______,
-                     _______, _______, _______, _______, _______,
-   _______, _______,
-   _______,
-   _______, _______, _______
+   XXXXXXX, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
+   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F12,
+            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F13,
+   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   XXXXXXX, XXXXXXX,
+   XXXXXXX,
+   XXXXXXX, XXXXXXX, XXXXXXX
 ),
 /* Keymap 3: Media and mouse keys
  *
@@ -192,23 +191,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // MEDIA AND MOUSE
 [MDIA] = LAYOUT_ergodox(
-       _______, _______, _______, _______, _______, _______, _______,
-       _______, _______, _______, KC_MS_U, _______, _______, _______,
-       _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,
-       _______, _______, _______, _______, _______, _______, _______,
-       _______, _______, _______, KC_BTN1, KC_BTN2,
-                                           _______, _______,
-                                                    _______,
-                                  _______, _______, _______,
+       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_U, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX,
+       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2,
+                                           XXXXXXX, XXXXXXX,
+                                                    XXXXXXX,
+                                  XXXXXXX, XXXXXXX, XXXXXXX,
     // right hand
-       _______,  _______, _______, _______, _______, _______, _______,
-       _______,  _______, _______, _______, _______, _______, _______,
-                 _______, _______, _______, _______, _______, KC_MPLY,
-       _______,  _______, _______, KC_MPRV, KC_MNXT, _______, _______,
-                          KC_VOLU, KC_VOLD, KC_MUTE, _______, _______,
-       _______, _______,
-       _______,
-       _______, _______, KC_WBAK
+       XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPLY,
+       XXXXXXX,  XXXXXXX, XXXXXXX, KC_MPRV, KC_MNXT, XXXXXXX, XXXXXXX,
+                          KC_VOLU, KC_VOLD, KC_MUTE, XXXXXXX, XXXXXXX,
+       XXXXXXX, XXXXXXX,
+       XXXXXXX,
+       XXXXXXX, XXXXXXX, KC_WBAK
 ),
 };
 

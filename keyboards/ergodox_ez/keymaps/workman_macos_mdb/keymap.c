@@ -25,6 +25,9 @@
 #define MB_SNIP   HYPR(KC_C)
 #define MB_MPAST  LCTL(LSFT(LGUI(KC_C)))
 
+#define MB_TOP   LGUI(KC_UP)
+#define MB_BTM   LGUI(KC_DOWN)
+
 enum layers {
   BASE = 0,
   SYMB,
@@ -57,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        | LGui | LAlt |       | RAlt | RGui |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |ScrolU|       |ScrolD|      |      |
  *                                 |Backsp|LShift|------|       |------|Enter |Space |
  *                                 |   ace|      | LCtl |       | RCtl |      |      |
  *                                 `--------------------'       `--------------------'
@@ -95,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
      * |        | s-All| Undo |      |      |      |      |           |      |      |      |   <  |  >   |   ?  |        |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-     *   |      | Match| Cut  |      |      |                                       |      |      |      |      |      |
+     *   |      | Match| Cut  |      |      |                                       |      |      | top  |bottom|      |
      *   `----------------------------------'                                       `----------------------------------'
      *                                        ,-------------.       ,-------------.
      *                                        |      |      |       |      |      |
@@ -121,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        XXXXXXX, XXXXXXX, KC_PLUS, KC_MINS, XXXXXXX, KC_COLN, KC_PIPE,
                 XXXXXXX, KC_LPRN, KC_RPRN, XXXXXXX, XXXXXXX, KC_DQT,
        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                         XXXXXXX, XXXXXXX, MB_TOP,  MB_BTM, XXXXXXX,
        XXXXXXX, XXXXXXX,
        XXXXXXX,
        XXXXXXX, KC_ESC,  KC_BSPC

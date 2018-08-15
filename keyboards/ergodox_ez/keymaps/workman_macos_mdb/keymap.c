@@ -107,14 +107,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
      * |        |      |      |      |      |      |      |           |      |      |      |   <  |  >   |   ?  |        |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
-     *   |      | None | Redo |altlft|altrgt|                                       |      |      |altup |altdn |      |
+     *   |      | None | Redo |altlft|altrgt|                                       |  top |bottom|ScrolU|ScrolD|      |
      *   `----------------------------------'                                       `----------------------------------'
      *                                        ,-------------.       ,-------------.
      *                                        |      |      |       |      |      |
      *                                 ,------|------|------|       |------+------+------.
-     *                                 |      |      |  Cut |       |ScrolU|      |      |
+     *                                 |      |      |  Cut |       |cmd + |      |      |
      *                                 |Space |      |------|       |------|  Esc |Backsp|
-     *                                 |      |      | Match|       |ScrolD|      |   ace|
+     *                                 |      |      | Match|       |cmd - |      |   ace|
      *                                 `--------------------'       `--------------------'
      */
     // SYMBOLS
@@ -133,10 +133,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        XXXXXXX, XXXXXXX, KC_PLUS, KC_MINS, XXXXXXX, KC_COLN, KC_PIPE,
                 XXXXXXX, KC_LPRN, KC_RPRN, XXXXXXX, XXXXXXX, KC_DQT,
        XXXXXXX, XXXXXXX, XXXXXXX, KC_LT,   KC_GT,   KC_QUES, XXXXXXX,
-                         XXXXXXX, XXXXXXX, MB_ALTU, MB_ALTD, XXXXXXX,
+                         MB_TOP,  MB_BTM,  KC_WH_U, KC_WH_D, XXXXXXX,
        XXXXXXX, XXXXXXX,
-       KC_WH_U,
-       KC_WH_D, KC_ESC,  KC_BSPC
+       MB_ZMI,
+       MB_ZMO, KC_ESC,  KC_BSPC
 ),
 /* Keymap 2: Function Layer
  *
@@ -149,14 +149,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      | top  |bottom|      |
+ *   |      |      |      |      |      |                                       |      |      | pgup | pgdn |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |Snipts|       |cmd + |      |      |
+ *                                 |      |      |Snipts|       |      |      |      |
  *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |Mpaste|       |cmd - |      |      |
+ *                                 |      |      |Mpaste|       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // FUNCTION
@@ -175,10 +175,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F12,
             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F13,
    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-                     XXXXXXX, XXXXXXX, MB_TOP,  MB_BTM,  XXXXXXX,
+                     XXXXXXX, XXXXXXX, KC_PGUP, KC_PGDN,  XXXXXXX,
    XXXXXXX, XXXXXXX,
-   MB_ZMI,
-   MB_ZMO,  XXXXXXX, XXXXXXX
+   XXXXXXX,
+   XXXXXXX, XXXXXXX, XXXXXXX
 ),
 /* Keymap 3: Media and mouse keys
  *

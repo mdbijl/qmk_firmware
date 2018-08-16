@@ -45,11 +45,10 @@ enum layers {
 };
 
 enum custom_keycodes {
-  JJ_MACRO = SAFE_RANGE,
-  JJ_OTHER,
-  EPRM,
+  EPRM = SAFE_RANGE,
   VRSN,
-  RGB_SLD
+  RGB_SLD,
+  MB_CMD_PASTE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -248,6 +247,18 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // dynamically generate these.
+    case MB_PASTE:
+      // with Cmd+Alt then send multi paste
+      if (record->event.pressed) {
+
+        // with Cmd then send match
+        if ((keyboard_report->mods & MOD_BIT(KC_LGUI)) | (keyboard_report->mods & MOD_BIT(KC_RGUI))) {
+          SEND_STRING("MATCH")
+          return true
+        }
+      }
+      return false
+      break;
     case EPRM:
       if (record->event.pressed) {
         eeconfig_init();

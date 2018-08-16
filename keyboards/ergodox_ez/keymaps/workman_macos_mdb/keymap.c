@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         KC_ESC,         KC_1,         KC_2,    KC_3,   KC_4,   KC_5,   XXXXXXX,
         KC_TAB,         KC_Q,         KC_D,    KC_R,   KC_W,   KC_B,   XXXXXXX,
-        MO(FUNC),       KC_A,         KC_S,    KC_H,   KC_T,   KC_G,
+        TT(FUNC),       KC_A,         KC_S,    KC_H,   KC_T,   KC_G,
         MO(SYMB),       CTL_Z,        KC_X,    KC_M,   KC_C,   LT1_V,  XXXXXXX,
         XXXXXXX,        MB_ALL,       MB_UNDO, KC_LEFT,KC_RGHT,
                                                KC_LGUI,        KC_LALT,
@@ -172,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    // left hand
    XXXXXXX, KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,   XXXXXXX,
    XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-   _______, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,
+   TO(BASE),XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,
    _______, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                        XXXXXXX, XXXXXXX,

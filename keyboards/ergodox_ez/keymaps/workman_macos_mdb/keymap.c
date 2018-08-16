@@ -60,6 +60,11 @@ enum custom_keycodes {
   CB_COPY,   // Combo
 };
 
+static bool reregisterLGui;
+static bool reregisterRGui;
+static bool reregisterLAlt;
+static bool reregisterRAlt;
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
@@ -162,9 +167,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |Snippt|       |      |      |      |
  *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |Mpaste|       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // FUNCTION
@@ -176,8 +181,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    _______, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                        XXXXXXX, XXXXXXX,
-                                                XXXXXXX,
-                              XXXXXXX, XXXXXXX, XXXXXXX,
+                                                MB_SNIP,
+                              XXXXXXX, XXXXXXX, MB_PASTE,
    // right hand
    XXXXXXX, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F12,
@@ -204,9 +209,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |Snippt|       |      |      |      |
+ *                                 |      |      |      |       |      |      |      |
  *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |Mpaste|       |      |      |      |
+ *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
@@ -217,8 +222,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        TO(BASE),XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
        XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2,
                                            XXXXXXX, XXXXXXX,
-                                                    MB_SNIP,
-                                  XXXXXXX, XXXXXXX, MB_PASTE,
+                                                    XXXXXXX,
+                                  XXXXXXX, XXXXXXX, XXXXXXX,
     // right hand
        KC_MPRV,  KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX,
        XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -253,28 +258,46 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
   return MACRO_NONE;
 };
 
+bool unregister_if_needed(uint8_t code) {
+  if (keyboard_report->mods & MOD_BIT(code)) {
+    unregister_code(code);
+    return true;
+  } else {
+    return false;
+  }
+}
+
+void reregister_if_needed(void) {
+  if (reregisterRGui)   { register_code(KC_LGUI); }
+  if (reregisterLGui)   { register_code(KC_RGUI); }
+  if (reregisterRAlt)   { register_code(KC_RALT); }
+  if (reregisterLAlt)   { register_code(KC_LALT); }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
 
     case CB_PASTE:
       if (record->event.pressed) {
-        // Alfred paste
+
         if (COMMAND && OPTION) {
-          unregister_code(KC_LGUI);
-          unregister_code(KC_LALT);
-          unregister_code(KC_RGUI);
-          unregister_code(KC_RALT);
+        }
 
+        // Alfred paste
+        else if (COMMAND ) {
+          reregisterLGui = unregister_if_needed(KC_LGUI);
+          reregisterRGui = unregister_if_needed(KC_RGUI);
           SEND_STRING(SS_LCTRL(SS_LSFT(SS_LGUI("c"))));
-
-          register_code(KC_RGUI);
-          register_code(KC_RALT);
+          reregister_if_needed();
           return true;
         }
 
         // Match
-        else if (COMMAND) {
+        else if (OPTION) {
+          reregisterLAlt = unregister_if_needed(KC_LALT);
+          reregisterRAlt = unregister_if_needed(KC_RALT);
           SEND_STRING(SS_LGUI(SS_LSFT("v")));
+          reregister_if_needed();
           return true;
         }
 
@@ -290,15 +313,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case CB_COPY:
       if (record->event.pressed) {
 
-        // Alfred shippets
         if (COMMAND && OPTION) {
+        }
+
+        // Alfred shippets
+        else if (COMMAND) {
+          reregisterLGui = unregister_if_needed(KC_LGUI);
+          reregisterRGui = unregister_if_needed(KC_RGUI);
           SEND_STRING(SS_LSFT(SS_LCTRL(SS_LALT(SS_LGUI("c")))));
+          reregister_if_needed();
           return true;
         }
 
         // Cut
-        else if (COMMAND) {
+        else if (OPTION) {
+          reregisterLAlt = unregister_if_needed(KC_LALT);
+          reregisterRAlt = unregister_if_needed(KC_RALT);
           SEND_STRING(SS_LGUI("x"));
+          reregister_if_needed();
           return true;
         }
 

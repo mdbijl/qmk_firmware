@@ -39,7 +39,6 @@
 #define MB_ALTL   LALT(KC_LEFT)
 #define MB_ALTR   LALT(KC_RIGHT)
 
-
 // For use in process_record_user
 #define COMMAND ((keyboard_report->mods & MOD_BIT(KC_LGUI)) || (keyboard_report->mods & MOD_BIT(KC_RGUI)))
 #define OPTION  ((keyboard_report->mods & MOD_BIT(KC_LALT)) || (keyboard_report->mods & MOD_BIT(KC_RALT)))
@@ -58,6 +57,8 @@ enum custom_keycodes {
   RGB_SLD,
   CB_PASTE,  // Combo
   CB_COPY,   // Combo
+  CB_SELCT,  // Combo
+  CB_UNDO    // Combo
 };
 
 static bool reregisterLGui;
@@ -95,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,         KC_Q,         KC_D,    KC_R,   KC_W,   KC_B,   XXXXXXX,
         TT(FUNC),       KC_A,         KC_S,    KC_H,   KC_T,   KC_G,
         MO(SYMB),       CTL_Z,        KC_X,    KC_M,   KC_C,   LT1_V,  XXXXXXX,
-        XXXXXXX,        MB_ALL,       MB_UNDO, KC_LEFT,KC_RGHT,
+        XXXXXXX,        MB_ALL,       CB_UNDO, KC_LEFT,KC_RGHT,
                                                KC_LGUI,        KC_LALT,
                                                                CB_COPY,
                                                KC_BSPC,KC_LSFT,CB_PASTE,
@@ -280,8 +281,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case CB_PASTE:
       if (record->event.pressed) {
 
-        if (COMMAND && OPTION) {
-        }
+        if (COMMAND && OPTION) {}
 
         // Alfred paste
         else if (COMMAND ) {
@@ -313,10 +313,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case CB_COPY:
       if (record->event.pressed) {
 
-        if (COMMAND && OPTION) {
-        }
+        if (COMMAND && OPTION) {}
 
-        // Alfred shippets
+        // Alfred snippets
         else if (COMMAND) {
           reregisterLGui = unregister_if_needed(KC_LGUI);
           reregisterRGui = unregister_if_needed(KC_RGUI);
@@ -342,6 +341,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+
+      case CB_UNDO:
+        if (record->event.pressed) {
+
+          if (COMMAND && OPTION) {}
+          else if (COMMAND) {}
+
+          // Redo
+          else if (OPTION) {
+            reregisterLAlt = unregister_if_needed(KC_LALT);
+            reregisterRAlt = unregister_if_needed(KC_RALT);
+            SEND_STRING(SS_LSFT(SS_LGUI("z")));
+            reregister_if_needed();
+            return true;
+          }
+
+          // Undo
+          else if (NO_MODIFIERS) {
+            SEND_STRING(SS_LGUI("z"));
+            return true;
+          }
+        }
+        return false;
+        break;
+
     case EPRM:
       if (record->event.pressed) {
         eeconfig_init();

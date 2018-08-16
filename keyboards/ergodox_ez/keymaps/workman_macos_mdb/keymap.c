@@ -13,10 +13,7 @@
 #define CTL_SL RCTL_T(KC_SLASH)
 #define CTL_MN RCTL_T(KC_PMNS)
 
-#define MB_COPY   LGUI(KC_C)
 #define MB_CUT    LGUI(KC_X)
-#define MB_PASTE  LGUI(KC_V)
-#define MB_MATCH  LSFT(LGUI(KC_V))
 
 #define MB_UNDO   LGUI(KC_Z)
 #define MB_REDO   LSFT(LGUI(KC_Z))
@@ -37,6 +34,12 @@
 #define MB_ALTL   LALT(KC_LEFT)
 #define MB_ALTR   LALT(KC_RIGHT)
 
+
+// For use in process_record_user
+#define COMMAND ((keyboard_report->mods & MOD_BIT(KC_LGUI)) || (keyboard_report->mods & MOD_BIT(KC_RGUI)))
+#define OPTION  ((keyboard_report->mods & MOD_BIT(KC_LALT)) || (keyboard_report->mods & MOD_BIT(KC_RALT)))
+#define NO_MODIFIERS ((keyboard_report->mods != MOD_BIT(KC_LGUI)) && (keyboard_report->mods != MOD_BIT(KC_RGUI)) && (keyboard_report->mods != MOD_BIT(KC_LALT)) && (keyboard_report->mods != MOD_BIT(KC_RALT)) && (keyboard_report->mods != MOD_BIT(KC_LSHIFT)) && (keyboard_report->mods != MOD_BIT(KC_RSHIFT)) && (keyboard_report->mods != MOD_BIT(KC_LCTRL)) && (keyboard_report->mods != MOD_BIT(KC_RCTRL)))
+
 enum layers {
   BASE = 0,
   SYMB,
@@ -48,7 +51,8 @@ enum custom_keycodes {
   EPRM = SAFE_RANGE,
   VRSN,
   RGB_SLD,
-  MB_CMD_PASTE
+  CB_PASTE,  // Combo
+  CB_COPY,   // Combo
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -83,8 +87,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MO(SYMB),       CTL_Z,        KC_X,    KC_M,   KC_C,   LT1_V,  XXXXXXX,
         XXXXXXX,        MB_ALL,       MB_UNDO, KC_LEFT,KC_RGHT,
                                                KC_LGUI,        KC_LALT,
-                                                               MB_COPY,
-                                               KC_BSPC,KC_LSFT,MB_PASTE,
+                                                               CB_COPY,
+                                               KC_BSPC,KC_LSFT,CB_PASTE,
         // right hand
              XXXXXXX,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_GRV,
              XXXXXXX,     KC_J,   KC_F,   KC_U,   KC_P,   KC_SCLN,          KC_BSLS,
@@ -111,9 +115,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                        ,-------------.       ,-------------.
      *                                        |      |      |       |      |      |
      *                                 ,------|------|------|       |------+------+------.
-     *                                 |      |      |  Cut |       |cmd + |      |      |
+     *                                 |      |      |      |       |cmd + |      |      |
      *                                 |Space |      |------|       |------|  Esc |Backsp|
-     *                                 |      |      | Match|       |cmd - |      |   ace|
+     *                                 |      |      |      |       |cmd - |      |   ace|
      *                                 `--------------------'       `--------------------'
      */
     // SYMBOLS
@@ -125,8 +129,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, _______,
        XXXXXXX, MB_NONE, MB_REDO,  MB_ALTL, MB_ALTR,
                                             XXXXXXX, XXXXXXX,
-                                                     MB_CUT,
-                                   KC_SPC,  XXXXXXX, MB_MATCH,
+                                                     XXXXXXX,
+                                   KC_SPC,  XXXXXXX, XXXXXXX,
        // right hand
        XXXXXXX, KC_CIRC, KC_AMPR,KC_ASTR, KC_LPRN,  KC_RPRN, KC_TILD,
        XXXXXXX, XXXXXXX, KC_PLUS, KC_MINS, XXXXXXX, KC_COLN, KC_PIPE,
@@ -153,9 +157,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |Snipts|       |      |      |      |
+ *                                 |      |      |      |       |      |      |      |
  *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |Mpaste|       |      |      |      |
+ *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // FUNCTION
@@ -167,8 +171,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    _______, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                        XXXXXXX, XXXXXXX,
-                                                MB_SNIP,
-                              XXXXXXX, XXXXXXX, MB_MPAST,
+                                                XXXXXXX,
+                              XXXXXXX, XXXXXXX, XXXXXXX,
    // right hand
    XXXXXXX, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F12,
@@ -246,24 +250,53 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    // dynamically generate these.
-    case MB_PASTE:
 
+    case CB_PASTE:
       if (record->event.pressed) {
 
-        // with Cmd+Alt then send multi paste
-        if ((keyboard_report->mods & MOD_BIT(KC_LGUI)) | (keyboard_report->mods & MOD_BIT(KC_RGUI))) && ((keyboard_report->mods & MOD_BIT(KC_LALT)) | (keyboard_report->mods & MOD_BIT(KC_RALT))) {
-          SEND_STRING("ALFRED MULTI")
-          return true
+        // Alfred paste
+        if (COMMAND && OPTION) {
+          SEND_STRING(SS_LCTRL(SS_LSFT(SS_LGUI("c"))));
+          return true;
         }
 
-        // with Cmd then send match
-        else if ((keyboard_report->mods & MOD_BIT(KC_LGUI)) | (keyboard_report->mods & MOD_BIT(KC_RGUI))) {
-          SEND_STRING("MATCH")
-          return true
+        // Match
+        else if (COMMAND) {
+          SEND_STRING(SS_LGUI(SS_LSFT("v")));
+          return true;
+        }
+
+        // Normal paste
+        else if (NO_MODIFIERS) {
+          SEND_STRING(SS_LGUI("v"));
+          return true;
         }
       }
-      return false
+      return false;
+      break;
+
+    case CB_COPY:
+      if (record->event.pressed) {
+
+        // Alfred shippets
+        if (COMMAND && OPTION) {
+          SEND_STRING(SS_LSFT(SS_LCTRL(SS_LSFT(SS_LGUI("c")))));
+          return true;
+        }
+
+        // Cut
+        else if (COMMAND) {
+          SEND_STRING(SS_LGUI("x"));
+          return true;
+        }
+
+        // Copy
+        else if (NO_MODIFIERS) {
+          SEND_STRING(SS_LGUI("c"));
+          return true;
+        }
+      }
+      return false;
       break;
     case EPRM:
       if (record->event.pressed) {

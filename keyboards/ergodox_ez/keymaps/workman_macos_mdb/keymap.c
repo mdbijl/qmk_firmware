@@ -25,6 +25,8 @@
 
 #define MB_TOP    LGUI(KC_UP)
 #define MB_BTM    LGUI(KC_DOWN)
+#define MB_HOME   LGUI(KC_LEFT)
+#define MB_END    LGUI(KC_RIGHT)
 
 #define MB_ZMI    LGUI(KC_PPLS)
 #define MB_ZMO    LGUI(KC_PMNS)
@@ -94,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              XXXXXXX,     KC_J,   KC_F,   KC_U,   KC_P,   KC_SCLN,          KC_BSLS,
                           KC_Y,   KC_N,   KC_E,   KC_O,   KC_I,             KC_QUOT,
              XXXXXXX,     LT1_K,  KC_L,   KC_COMM,KC_DOT, CTL_SL,           MO(SYMB),
-                                  KC_UP,  KC_DOWN,KC_HOME,KC_END,           XXXXXXX,
+                                  KC_UP,  KC_DOWN,MB_HOME,MB_END,           XXXXXXX,
              KC_RALT,     KC_RGUI,
              KC_PPLS,
              CTL_MN,      KC_ENT, KC_SPC

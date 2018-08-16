@@ -13,7 +13,10 @@
 #define CTL_SL RCTL_T(KC_SLASH)
 #define CTL_MN RCTL_T(KC_PMNS)
 
+#define MB_COPY   LGUI(KC_C)
 #define MB_CUT    LGUI(KC_X)
+#define MB_PASTE  LGUI(KC_V)
+#define MB_MATCH  LSFT(LGUI(KC_V))
 
 #define MB_UNDO   LGUI(KC_Z)
 #define MB_REDO   LSFT(LGUI(KC_Z))
@@ -117,9 +120,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                        ,-------------.       ,-------------.
      *                                        |      |      |       |      |      |
      *                                 ,------|------|------|       |------+------+------.
-     *                                 |      |      |      |       |cmd + |      |      |
+     *                                 |      |      | Cut  |       |cmd + |      |      |
      *                                 |Space |      |------|       |------|  Esc |Backsp|
-     *                                 |      |      |      |       |cmd - |      |   ace|
+     *                                 |      |      | Match|       |cmd - |      |   ace|
      *                                 `--------------------'       `--------------------'
      */
     // SYMBOLS
@@ -131,8 +134,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, _______,
        XXXXXXX, MB_NONE, MB_REDO,  MB_ALTL, MB_ALTR,
                                             XXXXXXX, XXXXXXX,
-                                                     XXXXXXX,
-                                   KC_SPC,  XXXXXXX, XXXXXXX,
+                                                     MB_CUT,
+                                   KC_SPC,  XXXXXXX, MB_MATCH,
        // right hand
        XXXXXXX, KC_CIRC, KC_AMPR,KC_ASTR, KC_LPRN,  KC_RPRN, KC_TILD,
        XXXXXXX, XXXXXXX, KC_PLUS, KC_MINS, XXXXXXX, KC_COLN, KC_PIPE,

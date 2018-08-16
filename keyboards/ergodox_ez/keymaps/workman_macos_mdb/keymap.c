@@ -26,10 +26,16 @@
 #define MB_SNIP   HYPR(KC_C)
 #define MB_MPAST  LCTL(LSFT(LGUI(KC_C)))
 
+#define MB_CTUP    LGUI(KC_UP)
+#define MB_CTDN    LGUI(KC_DOWN)
+#define MB_CTLT   LGUI(KC_LEFT)
+#define MB_CTRT    LGUI(KC_RIGHT)
+
 #define MB_TOP    LGUI(KC_UP)
 #define MB_BTM    LGUI(KC_DOWN)
 #define MB_HOME   LGUI(KC_LEFT)
 #define MB_END    LGUI(KC_RIGHT)
+
 
 #define MB_ZMI    LGUI(KC_PPLS)
 #define MB_ZMO    LGUI(KC_PMNS)
@@ -164,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |   L0   |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      | pgup | pgdn |      |
+ *   |      |      |      | ^left|^right|                                       |  ^up | ^down| pgup | pgdn |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -177,11 +183,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // FUNCTION
 [FUNC] = LAYOUT_ergodox(
    // left hand
-   XXXXXXX, KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,   XXXXXXX,
-   XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-   TO(MDIA),XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,
-   TO(BASE),XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   XXXXXXX,
+   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   TO(MDIA),XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   TO(BASE),XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   XXXXXXX, XXXXXXX, XXXXXXX, MB_CTLT, MB_CTRT,
                                        XXXXXXX, XXXXXXX,
                                                 MB_SNIP,
                               XXXXXXX, XXXXXXX, MB_PASTE,
@@ -190,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F12,
             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F13,
    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                     XXXXXXX, XXXXXXX, KC_PGUP, KC_PGDN, XXXXXXX,
+                     MB_CTUP, MB_CTDN, KC_PGUP, KC_PGDN, XXXXXXX,
    XXXXXXX, XXXXXXX,
    XXXXXXX,
    XXXXXXX, XXXXXXX, XXXXXXX

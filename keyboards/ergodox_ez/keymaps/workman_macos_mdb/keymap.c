@@ -9,10 +9,6 @@
 #define SH_ESC LSFT_T(KC_ESCAPE)
 #define SH_ENT RSFT_T(KC_ENTER)
 
-#define CTL_Z  LCTL_T(KC_Z)
-#define CTL_SL RCTL_T(KC_SLASH)
-#define CTL_MN RCTL_T(KC_PMNS)
-
 #define MB_COPY   LGUI(KC_C)
 #define MB_CUT    LGUI(KC_X)
 #define MB_PASTE  LGUI(KC_V)
@@ -29,6 +25,9 @@
 #define MB_TOP    LGUI(KC_UP)
 #define MB_BTM    LGUI(KC_DOWN)
 
+#define MB_HOME   LGUI(KC_LEFT)
+#define MB_END    LGUI(KC_RIGHT)
+
 #define MB_ZMI    LGUI(KC_PPLS)
 #define MB_ZMO    LGUI(KC_PMNS)
 
@@ -36,6 +35,11 @@
 #define MB_ALTD   LALT(KC_DOWN)
 #define MB_ALTL   LALT(KC_LEFT)
 #define MB_ALTR   LALT(KC_RIGHT)
+
+#define CTL_Z  LCTL_T(KC_Z)
+#define CTL_SL RCTL_T(KC_SLASH)
+#define CTL_MN RCTL_T(KC_PMNS)
+//#define CTL_PA LCTL_T(MB_MPAST)
 
 enum layers {
   BASE = 0,
@@ -91,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              XXXXXXX,     KC_J,   KC_F,   KC_U,   KC_P,   KC_SCLN,          KC_BSLS,
                           KC_Y,   KC_N,   KC_E,   KC_O,   KC_I,             KC_QUOT,
              XXXXXXX,     LT1_K,  KC_L,   KC_COMM,KC_DOT, CTL_SL,           MO(SYMB),
-                                  KC_UP,  KC_DOWN,KC_HOME,KC_END,           XXXXXXX,
+                                  KC_UP,  KC_DOWN,MB_HOME,MB_END,           XXXXXXX,
              KC_RALT,     KC_RGUI,
              KC_PPLS,
              CTL_MN,      KC_ENT, KC_SPC
@@ -149,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      | pgup | pgdn |      |
+ *   |      |      |      |      |      |                                       | pgup | pgdn |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -175,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F12,
             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F13,
    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-                     XXXXXXX, XXXXXXX, KC_PGUP, KC_PGDN,  XXXXXXX,
+                     KC_PGUP, KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX,
    XXXXXXX, XXXXXXX,
    XXXXXXX,
    XXXXXXX, XXXXXXX, XXXXXXX

@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |   L2   |   A  |   S  |   H  |   T  |   G  |------|           |------|   Y  |   N  |   E  |   O  |   I  |    '   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |   L1   |ctrl Z|   X  |   M  |   C  |   V  |      |           |      |   N  |   M  |   ,  |   .  |ctrl /|   L1   |
+ * |   L1   |ctrl Z|   X  |   M  |   C  |   V  |      |           |      |   K  |   L  |   ,  |   .  |ctrl /|   L1   |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      | S-All| Undo | Left | Right|                                       |  Up  | Down | Home |  End |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -204,9 +204,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |Snippt|       |      |      |      |
  *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |Mpaste|       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
@@ -217,8 +217,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        TO(BASE),XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
        XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2,
                                            XXXXXXX, XXXXXXX,
-                                                    XXXXXXX,
-                                  XXXXXXX, XXXXXXX, XXXXXXX,
+                                                    MB_SNIP,
+                                  XXXXXXX, XXXXXXX, MB_PASTE,
     // right hand
        KC_MPRV,  KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX,
        XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -258,10 +258,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case CB_PASTE:
       if (record->event.pressed) {
-
         // Alfred paste
         if (COMMAND && OPTION) {
+          unregister_code(KC_LGUI);
+          unregister_code(KC_LALT);
+          unregister_code(KC_RGUI);
+          unregister_code(KC_RALT);
+
           SEND_STRING(SS_LCTRL(SS_LSFT(SS_LGUI("c"))));
+
+          register_code(KC_RGUI);
+          register_code(KC_RALT);
           return true;
         }
 
@@ -285,7 +292,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         // Alfred shippets
         if (COMMAND && OPTION) {
-          SEND_STRING(SS_LSFT(SS_LCTRL(SS_LSFT(SS_LGUI("c")))));
+          SEND_STRING(SS_LSFT(SS_LCTRL(SS_LALT(SS_LGUI("c")))));
           return true;
         }
 

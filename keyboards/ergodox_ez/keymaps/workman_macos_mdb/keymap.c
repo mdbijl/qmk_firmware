@@ -3,47 +3,70 @@
 #include "action_layer.h"
 #include "version.h"
 
-#define LT1_K LT(SYMB,KC_K)
-#define LT1_V LT(SYMB,KC_V)
-
-#define SH_ESC LSFT_T(KC_ESCAPE)
-#define SH_ENT RSFT_T(KC_ENTER)
-
+// Dual role keys
 #define CTL_Z  LCTL_T(KC_Z)
 #define CTL_SL RCTL_T(KC_SLASH)
 #define CTL_MN RCTL_T(KC_PMNS)
 
+// Copy, paste, undo, select
 #define MB_COPY   LGUI(KC_C)
 #define MB_CUT    LGUI(KC_X)
 #define MB_PASTE  LGUI(KC_V)
 #define MB_MATCH  LSFT(LGUI(KC_V))
-
 #define MB_UNDO   LGUI(KC_Z)
 #define MB_REDO   LSFT(LGUI(KC_Z))
 #define MB_ALL    LGUI(KC_A)
 #define MB_NONE   LSFT(LGUI(KC_A))
-
 #define MB_SNIP   HYPR(KC_C)
 #define MB_MPAST  LCTL(LSFT(LGUI(KC_C)))
 
-#define MB_CTUP    LGUI(KC_UP)
-#define MB_CTDN    LGUI(KC_DOWN)
-#define MB_CTLT   LGUI(KC_LEFT)
-#define MB_CTRT    LGUI(KC_RIGHT)
+// Ctrl left and right
+#define MB_CTLT   LCTL(KC_LEFT)
+#define MB_CTRT   LCTL(KC_RIGHT)
 
+// Home and end
 #define MB_TOP    LGUI(KC_UP)
 #define MB_BTM    LGUI(KC_DOWN)
 #define MB_HOME   LGUI(KC_LEFT)
 #define MB_END    LGUI(KC_RIGHT)
 
-
+// Zoom in and out
 #define MB_ZMI    LGUI(KC_PPLS)
 #define MB_ZMO    LGUI(KC_PMNS)
 
+// Alt + cursor
 #define MB_ALTU   LALT(KC_UP)
 #define MB_ALTD   LALT(KC_DOWN)
 #define MB_ALTL   LALT(KC_LEFT)
 #define MB_ALTR   LALT(KC_RIGHT)
+
+// All Cmd + combinations
+#define MB_CMDA  LGUI(KC_A)
+#define MB_CMDB  LGUI(KC_B)
+#define MB_CMDC  LGUI(KC_C)
+#define MB_CMDD  LGUI(KC_D)
+#define MB_CMDE  LGUI(KC_E)
+#define MB_CMDF  LGUI(KC_F)
+#define MB_CMDG  LGUI(KC_G)
+#define MB_CMDH  LGUI(KC_H)
+#define MB_CMDI  LGUI(KC_I)
+#define MB_CMDJ  LGUI(KC_J)
+#define MB_CMDK  LGUI(KC_K)
+#define MB_CMDL  LGUI(KC_L)
+#define MB_CMDM  LGUI(KC_M)
+#define MB_CMDN  LGUI(KC_N)
+#define MB_CMDO  LGUI(KC_O)
+#define MB_CMDP  LGUI(KC_P)
+#define MB_CMDQ  LGUI(KC_Q)
+#define MB_CMDR  LGUI(KC_R)
+#define MB_CMDS  LGUI(KC_S)
+#define MB_CMDT  LGUI(KC_T)
+#define MB_CMDU  LGUI(KC_U)
+#define MB_CMDV  LGUI(KC_V)
+#define MB_CMDW  LGUI(KC_W)
+#define MB_CMDX  LGUI(KC_X)
+#define MB_CMDY  LGUI(KC_Y)
+#define MB_CMDZ  LGUI(KC_Z)
 
 // For use in process_record_user
 #define COMMAND ((keyboard_report->mods & MOD_BIT(KC_LGUI)) || (keyboard_report->mods & MOD_BIT(KC_RGUI)))
@@ -52,10 +75,11 @@
 
 enum layers {
   BASE = 0,
-  SYMB = 1,
-  FUNC = 2,
-  MDIA = 3,
-  CNFG = 4,
+  SYMB,
+  FUNC,
+  MACR,
+  MDIA,
+  CNFG,
 };
 
 enum custom_keycodes {
@@ -66,6 +90,10 @@ enum custom_keycodes {
   CB_COPY,   // Combo
   CB_UNDO,   // Combo
   CB_ALL,    // Combo
+  MAIL1,
+  MAIL2,
+  PWD1,
+  PWD2,
 };
 
 static bool reregisterLGui;
@@ -101,8 +129,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         KC_ESC,         KC_1,         KC_2,    KC_3,   KC_4,   KC_5,   XXXXXXX,
         KC_TAB,         KC_Q,         KC_D,    KC_R,   KC_W,   KC_B,   XXXXXXX,
-        TT(FUNC),       KC_A,         KC_S,    KC_H,   KC_T,   KC_G,
-        MO(SYMB),       CTL_Z,        KC_X,    KC_M,   KC_C,   LT1_V,  XXXXXXX,
+        MO(FUNC),       KC_A,         KC_S,    KC_H,   KC_T,   KC_G,
+        MO(SYMB),       CTL_Z,        KC_X,    KC_M,   KC_C,   KC_V,  XXXXXXX,
         XXXXXXX,        CB_ALL,       CB_UNDO, KC_LEFT,KC_RGHT,
                                                KC_LGUI,        KC_LALT,
                                                                CB_COPY,
@@ -111,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              XXXXXXX,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_GRV,
              XXXXXXX,     KC_J,   KC_F,   KC_U,   KC_P,   KC_SCLN,          KC_BSLS,
                           KC_Y,   KC_N,   KC_E,   KC_O,   KC_I,             KC_QUOT,
-             XXXXXXX,     LT1_K,  KC_L,   KC_COMM,KC_DOT, CTL_SL,           MO(SYMB),
+             XXXXXXX,     KC_K,   KC_L,   KC_COMM,KC_DOT, CTL_SL,           MO(SYMB),
                                   KC_UP,  KC_DOWN,MB_HOME,MB_END,           XXXXXXX,
              KC_RALT,     KC_RGUI,
              KC_PPLS,
@@ -122,11 +150,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,--------------------------------------------------.           ,--------------------------------------------------.
      * |        |   !  |   @  |   #  |   $  |   %  |      |           |      |   ^  |   &  |   *  |   (  |   )  |    ~   |
      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-     * |        |      |      |   =  |   _  |      |      |           |      |      |   +  |   -  |      |   :  |    |   |
+     * |   L0   |      |      |   =  |   _  |      |      |           |      |      |   +  |   -  |      |   :  |    |   |
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-     * |   L3   |   [  |   ]  |   {  |   }  |      |------|           |------|      |   (  |   )  |      |      |    "   |
+     * |  L+    |   [  |   ]  |   {  |   }  |      |------|           |------|      |   (  |   )  |      |      |    "   |
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-     * |   L0   |      |      |      |      |      |      |           |      |      |      |   <  |  >   |   ?  |        |
+     * |        |      |      |      |      |      |      |           |      |      |      |   <  |  >   |   ?  |        |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
      *   |      | None | Redo |altlft|altrgt|                                       |ScrolD|ScrolU|  top | bottom|      |
      *   `----------------------------------'                                       `----------------------------------'
@@ -141,9 +169,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // SYMBOLS
 [SYMB] = LAYOUT_ergodox(
        // left hand
-       XXXXXXX, KC_EXLM, KC_AT,    KC_HASH, KC_DLR,  KC_PERC, XXXXXXX,
-       XXXXXXX, XXXXXXX, XXXXXXX,  KC_EQL,  KC_UNDS, XXXXXXX, XXXXXXX,
-       _______, KC_LBRC, KC_RBRC,  KC_LCBR, KC_RCBR, XXXXXXX,
+       TO(BASE),KC_EXLM, KC_AT,    KC_HASH, KC_DLR,  KC_PERC, XXXXXXX,
+       TO(BASE),XXXXXXX, XXXXXXX,  KC_EQL,  KC_UNDS, XXXXXXX, XXXXXXX,
+       TO(FUNC), KC_LBRC, KC_RBRC,  KC_LCBR, KC_RCBR, XXXXXXX,
        _______, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, _______,
        XXXXXXX, MB_NONE, MB_REDO,  MB_ALTL, MB_ALTR,
                                             XXXXXXX, XXXXXXX,
@@ -164,53 +192,95 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |   F12  |
+ * |   L0   | CMDQ | CMDD |  ... |      |      |      |           |      |      |      |      |      |      |   F12  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |   L2   |      |      |      |      |      |------|           |------|      |      |      |      |      |   F13  |
+ * |   L+   |      |      |      |      |      |------|           |------|      |      |      |      |      |   F13  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |   L0   |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |   L-   |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      | ^left|^right|                                       | pgup | pgdn |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
+ *                                        |      | Alt  |       | Alt  |      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |Snippt|       |      |      |      |
- *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |Mpaste|       |      |      |      |
+ *                                 |      | Shift|------|       |------|      |      |
+ *                                 |      |      |Mpaste|       | Ctrl |      |      |
  *                                 `--------------------'       `--------------------'
  */
 // FUNCTION
 [FUNC] = LAYOUT_ergodox(
    // left hand
-   XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   XXXXXXX,
-   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-   TO(MDIA),XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-   TO(BASE),XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-   XXXXXXX, XXXXXXX, XXXXXXX, MB_CTLT, MB_CTRT,
-                                       XXXXXXX, XXXXXXX,
+   XXXXXXX,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   XXXXXXX,
+   TO(BASE), MB_CMDQ, MB_CMDD, MB_CMDR, MB_CMDW, MB_CMDB, XXXXXXX,
+   TO(MACR), MB_CMDA, MB_CMDS, MB_CMDH, MB_CMDT, MB_CMDG,
+   TO(BASE), MB_CMDZ, MB_CMDX, MB_CMDM, MB_CMDC, MB_CMDV, XXXXXXX,
+   XXXXXXX,  XXXXXXX, XXXXXXX, MB_CTLT, MB_CTRT,
+                                       XXXXXXX, KC_LALT,
                                                 MB_SNIP,
-                              XXXXXXX, XXXXXXX, MB_PASTE,
+                              XXXXXXX, KC_LSFT, MB_PASTE,
    // right hand
    XXXXXXX, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F12,
-            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F13,
-   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   XXXXXXX, MB_CMDJ, MB_CMDF, MB_CMDU, MB_CMDP, XXXXXXX, KC_F12,
+            MB_CMDY, MB_CMDN, MB_CMDE, MB_CMDO, MB_CMDI, KC_F13,
+   XXXXXXX, MB_CMDK, MB_CMDL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                      KC_PGUP, KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX,
-   XXXXXXX, XXXXXXX,
+   KC_RALT, XXXXXXX,
    XXXXXXX,
-   XXXXXXX, XXXXXXX, XXXXXXX
+   KC_LCTRL,XXXXXXX, XXXXXXX
 ),
-/* Keymap 3: Media and mouse keys
+/* Keymap 3: Macros
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |Brigh-|Brigh+|      |      |      |      |           |      |      |      | Mute | VolDn| VolUp|        |
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |     |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |   L0   |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |   L+   |      |      | Mail2| Mail1|      |------|           |------|      | Pwd1 | Pwd2 |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |   L-   |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |------|       |------|      |      |
+ *                                 |      |      |      |       |      |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
+// MACROS
+[MACR] = LAYOUT_ergodox(
+   // left hand
+   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   TO(BASE),XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   TO(MDIA),XXXXXXX, XXXXXXX, MAIL2,   MAIL1,   XXXXXXX,
+   TO(FUNC),XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                       XXXXXXX, XXXXXXX,
+                                                XXXXXXX,
+                              XXXXXXX, XXXXXXX, XXXXXXX,
+   // right hand
+   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+            XXXXXXX, PWD1,    PWD2,    XXXXXXX, XXXXXXX, XXXXXXX,
+   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+   XXXXXXX, XXXXXXX,
+   XXXXXXX,
+   XXXXXXX,XXXXXXX, XXXXXXX
+),
+/* Keymap 3: Media and mouse keys
+ *ergodox_ez/workman_macos_mdb @ 0.6.92-59-g9584d1-dirty
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |   L0   |Brigh-|Brigh+|      |      |      |      |           |      |      |      | Mute | VolDn| VolUp|        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |      |      | MsUp |      |      |      |           |      |      |      | MsUp |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |   L4   |      |MsLeft|MsDown|MsRght|      |------|           |------|      |MsLeft|MsDown|MsRght|      |        |
+ * |   L+   |      |MsLeft|MsDown|MsRght|      |------|           |------|      |MsLeft|MsDown|MsRght|      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |   L2   |      |      |      |      |      |      |           |      |      |      |      |      |      |   L0   |
+ * |   L-   |      |      |      |      |      |      |           |      |      |      |      |      |      |   L0   |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      | Lclk | Rclk |                                       | Lclk | Rclk |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -224,11 +294,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // MEDIA AND MOUSE
 [MDIA] = LAYOUT_ergodox(
-       XXXXXXX, KC_F14,  KC_F15,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-       XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_U, XXXXXXX, XXXXXXX, XXXXXXX,
-       TO(CNFG),XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX,
-       TO(FUNC),XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-       XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2,
+       XXXXXXX,  KC_F14,  KC_F15,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       TO(BASE), XXXXXXX, XXXXXXX, KC_MS_U, XXXXXXX, XXXXXXX, XXXXXXX,
+       TO(CNFG), XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX,
+       TO(MACR), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX,  XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2,
                                            XXXXXXX, XXXXXXX,
                                                     XXXXXXX,
                                   XXXXXXX, XXXXXXX, XXXXXXX,
@@ -245,13 +315,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 4: Keyboard config
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | Version|      |      |      |      |      |      |           |      |      |      |      |      |      |  Eprom |
+ * |  Light |      |      |      |      |      |      |           |      |      |      |      |      |      |Version |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |   L0   |      |      |      |      |      |      |           |      |      |      |      |      |      |  Eprom |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
+ * |   L+   |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |   L-   |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -265,17 +335,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // KEYBOARD CONFIG
 [CNFG] = LAYOUT_ergodox(
-       VRSN,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EPRM,
-       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-       TO(BASE),XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-       TO(MDIA),XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       RGB_SLD,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       TO(BASE), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       TO(BASE), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       TO(MDIA), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                            XXXXXXX, XXXXXXX,
                                                     XXXXXXX,
                                   XXXXXXX, XXXXXXX, XXXXXXX,
     // right hand
-       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VRSN,
+       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EPRM,
                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -414,29 +484,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
         break;
 
-        case CB_ALL:
-          if (record->event.pressed) {
+      case CB_ALL:
+        if (record->event.pressed) {
 
-            if (COMMAND && OPTION) {}
-            else if (COMMAND) {}
+          if (COMMAND && OPTION) {}
+          else if (COMMAND) {}
 
-            // Redo
-            else if (OPTION) {
-              reregisterLAlt = unregister_if_needed(KC_LALT);
-              reregisterRAlt = unregister_if_needed(KC_RALT);
-              SEND_STRING(SS_LSFT(SS_LGUI("a")));
-              reregister_if_needed();
-              return true;
-            }
-
-            // Undo
-            else if (NO_MODIFIERS) {
-              SEND_STRING(SS_LGUI("a"));
-              return true;
-            }
+          // Redo
+          else if (OPTION) {
+            reregisterLAlt = unregister_if_needed(KC_LALT);
+            reregisterRAlt = unregister_if_needed(KC_RALT);
+            SEND_STRING(SS_LSFT(SS_LGUI("a")));
+            reregister_if_needed();
+            return true;
           }
-          return false;
-          break;
+
+          // Undo
+          else if (NO_MODIFIERS) {
+            SEND_STRING(SS_LGUI("a"));
+            return true;
+          }
+        }
+        return false;
+        break;
 
       case EPRM:
       if (record->event.pressed) {
@@ -458,6 +528,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+      case MAIL1:
+        if (record->event.pressed) {
+          SEND_STRING ("maurice@debijl.net");
+        }
+        return false;
+        break;
+      case MAIL2:
+        if (record->event.pressed) {
+          SEND_STRING ("maurice@conveniencefactory.com");
+        }
+        return false;
+        break;
+      case PWD1:
+        if (record->event.pressed) {
+          SEND_STRING ("M0n573r");
+        }
+        return false;
+        break;
+      case PWD2:
+        if (record->event.pressed) {
+          SEND_STRING ("M13k573r");
+        }
+        return false;
+        break;
   }
   return true;
 }

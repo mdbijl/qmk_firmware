@@ -63,7 +63,8 @@ enum custom_keycodes {
   PWD2,
   RGB_ON,
   RGB_OFF,
-  RGB_LYR,   // Layer dependant underglow off
+  RGB_LYR,   // Layer dependant underglow off-
+  RGB_W,     // White
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -137,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // left hand
        TO(BASE),KC_EXLM, KC_AT,    KC_HASH, KC_DLR,  KC_PERC, XXXXXXX,
        TO(BASE),XXXXXXX, XXXXXXX,  KC_EQL,  KC_UNDS, XXXXXXX, XXXXXXX,
-       TO(FUNC), KC_LBRC, KC_RBRC,  KC_LCBR, KC_RCBR, XXXXXXX,
+       TO(FUNC),KC_LBRC, KC_RBRC,  KC_LCBR, KC_RCBR, XXXXXXX,
        _______, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, _______,
        XXXXXXX, MB_NONE, MB_REDO,  MB_ALTL, MB_ALTR,
                                             XXXXXXX, XXXXXXX,
@@ -242,9 +243,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap Media and mouse keys
  *ergodox_ez/workman_macos_mdb @ 0.6.92-59-g9584d1-dirty
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   L0   |Brigh-|Brigh+|      |      |      |      |           |      |      |      | Mute | VolDn| VolUp|        |
+ * |        |Brigh-|Brigh+|      |      |      |      |           |      |      |      | Mute | VolDn| VolUp|        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      | MsUp |      |      |      |           |      |      |      | MsUp |      |      |        |
+ * |   L0   |      |      | MsUp |      |      |      |           |      |      |      | MsUp |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |   L+   |      |MsLeft|MsDown|MsRght|      |------|           |------|      |MsLeft|MsDown|MsRght|      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -284,9 +285,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap Keyboard rgb underflow light config
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  Off  | Solid | Layer|      |      |      |      |           |      |      |      |      |      |      |Version |
+ * |  White | Br+  | Br+  | Hue+ | Hue- | Sat- | Sat+ |           |  Off |  On  | Solid| Layer| Anim | Anim |Version |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |   L0   |      |      |      |      |      |      |           |      |      |      |      |      |      |  Eprom |
+ * |   L0   |      |      |      |      |      |      |           |      | Anim | Anim | Anim | Anim | Anim |  Eprom |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |   L+   |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -303,7 +304,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 [CNFG] = LAYOUT_ergodox(
-       RGB_OFF,  RGB_ON,  RGB_LYR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       RGB_W,    RGB_VAD, RGB_VAI, RGB_HUI, RGB_HUD, RGB_SAD, RGB_SAI,
        TO(BASE), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
        XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
        TO(MDIA), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -312,8 +313,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     XXXXXXX,
                                   XXXXXXX, XXXXXXX, XXXXXXX,
     // right hand
-       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VRSN,
-       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EPRM,
+       RGB_OFF, RGB_ON,  RGB_LYR, RGB_M_B, RGB_M_R, RGB_M_SW,VRSN,
+       XXXXXXX, RGB_M_SN,RGB_M_K, RGB_M_X, RGB_M_G, RGB_M_T, EPRM,
                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -505,6 +506,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     }
+      case RGB_W: {
+        if (record->event.pressed) {
+          #ifdef RGBLIGHT_ENABLE
+            rgblight_sethsv(0, 0, 255);
+          #endif
+        }
+        return false;
+        break;
+      }
     case MAIL1:
       if (record->event.pressed) {
         SEND_STRING ("maurice@debijl.net");
@@ -557,7 +567,7 @@ uint32_t layer_state_set_user(uint32_t state) {
       case 0:
         #ifdef RGBLIGHT_COLOR_LAYER_0
         if (layer_dependant_rgblight) {
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
+          rgblight_sethsv (RGBLIGHT_COLOR_LAYER_0);
         }
         #else
         #ifdef RGBLIGHT_ENABLE
@@ -571,7 +581,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         ergodox_right_led_1_on();
         #ifdef RGBLIGHT_COLOR_LAYER_1
         if (layer_dependant_rgblight) {
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_1);
+          rgblight_sethsv(RGBLIGHT_COLOR_LAYER_1);
         }
         #endif
         break;
@@ -579,7 +589,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         ergodox_right_led_2_on();
         #ifdef RGBLIGHT_COLOR_LAYER_2
         if (layer_dependant_rgblight) {
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
+          rgblight_sethsv(RGBLIGHT_COLOR_LAYER_2);
         }
         #endif
         break;
@@ -587,7 +597,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         ergodox_right_led_3_on();
         #ifdef RGBLIGHT_COLOR_LAYER_3
         if (layer_dependant_rgblight) {
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_3);
+            rgblight_sethsv(RGBLIGHT_COLOR_LAYER_3);
         }
         #endif
         break;
@@ -596,7 +606,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         ergodox_right_led_2_on();
         #ifdef RGBLIGHT_COLOR_LAYER_4
         if (layer_dependant_rgblight) {
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
+          rgblight_sethsv(RGBLIGHT_COLOR_LAYER_4);
         }
         #endif
         break;
@@ -605,7 +615,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         ergodox_right_led_3_on();
         #ifdef RGBLIGHT_COLOR_LAYER_5
         if (layer_dependant_rgblight) {
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_5);
+          rgblight_sethsv(RGBLIGHT_COLOR_LAYER_5);
         }
         #endif
         break;
@@ -614,7 +624,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         ergodox_right_led_3_on();
         #ifdef RGBLIGHT_COLOR_LAYER_6
         if (layer_dependant_rgblight) {
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_6);
+          rgblight_sethsv(RGBLIGHT_COLOR_LAYER_6);
         }
         #endif
         break;
@@ -624,7 +634,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         ergodox_right_led_3_on();
         #ifdef RGBLIGHT_COLOR_LAYER_7
         if (layer_dependant_rgblight) {
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_6);
+          rgblight_sethsv(RGBLIGHT_COLOR_LAYER_6);
         }
         #endif
         break;

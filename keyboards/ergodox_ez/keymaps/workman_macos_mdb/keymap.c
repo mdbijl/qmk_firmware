@@ -18,16 +18,18 @@ enum layers {
 
 /* Reregistering keys */
 
-static bool reregisterLGui;
-static bool reregisterRGui;
-static bool reregisterLAlt;
-static bool reregisterRAlt;
+static bool reregister_lgui;
+static bool reregister_rgui;
+static bool reregister_lalt;
+static bool reregister_ralt;
+
+static bool layer_dependant_rgblight = true;
 
 void reset_reregistering(void) {
-  reregisterRGui = false;
-  reregisterLGui = false;
-  reregisterRAlt = false;
-  reregisterLAlt = false;
+  reregister_rgui = false;
+  reregister_lgui = false;
+  reregister_ralt = false;
+  reregister_lalt = false;
 }
 
 bool unregister_if_needed(uint8_t code) {
@@ -40,10 +42,10 @@ bool unregister_if_needed(uint8_t code) {
 }
 
 void reregister_if_needed(void) {
-  if (reregisterRGui)   { register_code(KC_RGUI); }
-  if (reregisterLGui)   { register_code(KC_LGUI); }
-  if (reregisterRAlt)   { register_code(KC_RALT); }
-  if (reregisterLAlt)   { register_code(KC_LALT); }
+  if (reregister_rgui)   { register_code(KC_RGUI); }
+  if (reregister_lgui)   { register_code(KC_LGUI); }
+  if (reregister_ralt)   { register_code(KC_RALT); }
+  if (reregister_lalt)   { register_code(KC_LALT); }
 }
 
 enum custom_keycodes {
@@ -51,7 +53,6 @@ enum custom_keycodes {
   RAISE,
   EPRM,
   VRSN,
-  RGB_SLD,
   CB_PASTE,  // Combo
   CB_COPY,   // Combo
   CB_UNDO,   // Combo
@@ -60,6 +61,9 @@ enum custom_keycodes {
   MAIL2,
   PWD1,
   PWD2,
+  RGB_ON,
+  RGB_OFF,
+  RGB_LYR,   // Layer dependant underglow off
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -277,10 +281,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
-/* Keymap Keyboard config
+/* Keymap Keyboard rgb underflow light config
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  Light |      |      |      |      |      |      |           |      |      |      |      |      |      |Version |
+ * |  Off  | Solid | Layer|      |      |      |      |           |      |      |      |      |      |      |Version |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |   L0   |      |      |      |      |      |      |           |      |      |      |      |      |      |  Eprom |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -299,7 +303,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 [CNFG] = LAYOUT_ergodox(
-       RGB_SLD,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       RGB_OFF,  RGB_ON,  RGB_LYR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
        TO(BASE), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
        XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
        TO(MDIA), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -355,8 +359,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         // Alfred paste
         else if (COMMAND ) {
-          reregisterLGui = unregister_if_needed(KC_LGUI);
-          reregisterRGui = unregister_if_needed(KC_RGUI);
+          reregister_lgui = unregister_if_needed(KC_LGUI);
+          reregister_rgui = unregister_if_needed(KC_RGUI);
           SEND_STRING(SS_LCTRL(SS_LSFT(SS_LGUI("c"))));
           reregister_if_needed(); // causes problems of the GUI button to be stucked
           return false;
@@ -364,8 +368,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         // Match
         else if (OPTION) {
-          reregisterLAlt = unregister_if_needed(KC_LALT);
-          reregisterRAlt = unregister_if_needed(KC_RALT);
+          reregister_lalt = unregister_if_needed(KC_LALT);
+          reregister_ralt = unregister_if_needed(KC_RALT);
           SEND_STRING(SS_LGUI(SS_LSFT("v")));
           reregister_if_needed();
           return false;
@@ -387,8 +391,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         // Alfred snippets
         else if (COMMAND) {
-          reregisterLGui = unregister_if_needed(KC_LGUI);
-          reregisterRGui = unregister_if_needed(KC_RGUI);
+          reregister_lgui = unregister_if_needed(KC_LGUI);
+          reregister_rgui = unregister_if_needed(KC_RGUI);
           SEND_STRING(SS_LSFT(SS_LCTRL(SS_LALT(SS_LGUI("c")))));
           reregister_if_needed();
           return false;
@@ -396,8 +400,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         // Cut
         else if (OPTION) {
-          reregisterLAlt = unregister_if_needed(KC_LALT);
-          reregisterRAlt = unregister_if_needed(KC_RALT);
+          reregister_lalt = unregister_if_needed(KC_LALT);
+          reregister_ralt = unregister_if_needed(KC_RALT);
           SEND_STRING(SS_LGUI("x"));
           reregister_if_needed();
           return false;
@@ -420,8 +424,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
           // Redo
           else if (OPTION) {
-            reregisterLAlt = unregister_if_needed(KC_LALT);
-            reregisterRAlt = unregister_if_needed(KC_RALT);
+            reregister_lalt = unregister_if_needed(KC_LALT);
+            reregister_ralt = unregister_if_needed(KC_RALT);
             SEND_STRING(SS_LSFT(SS_LGUI("z")));
             reregister_if_needed();
             return false;
@@ -444,8 +448,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
           // Redo
           else if (OPTION) {
-            reregisterLAlt = unregister_if_needed(KC_LALT);
-            reregisterRAlt = unregister_if_needed(KC_RALT);
+            reregister_lalt = unregister_if_needed(KC_LALT);
+            reregister_ralt = unregister_if_needed(KC_RALT);
             SEND_STRING(SS_LSFT(SS_LGUI("a")));
             reregister_if_needed();
             return true;
@@ -472,38 +476,59 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case RGB_SLD:
+    case RGB_ON:
       if (record->event.pressed) {
         #ifdef RGBLIGHT_ENABLE
+          rgblight_enable();
           rgblight_mode(1);
+          layer_dependant_rgblight = false;
         #endif
       }
       return false;
       break;
-      case MAIL1:
-        if (record->event.pressed) {
-          SEND_STRING ("maurice@debijl.net");
-        }
-        return false;
-        break;
-      case MAIL2:
-        if (record->event.pressed) {
-          SEND_STRING ("maurice@conveniencefactory.com");
-        }
-        return false;
-        break;
-      case PWD1:
-        if (record->event.pressed) {
-          SEND_STRING ("M0n573r");
-        }
-        return false;
-        break;
-      case PWD2:
-        if (record->event.pressed) {
-          SEND_STRING ("M13k573r");
-        }
-        return false;
-        break;
+    case RGB_OFF:
+      if (record->event.pressed) {
+        #ifdef RGBLIGHT_ENABLE
+        rgblight_disable();
+        #endif
+      }
+      return false;
+      break;
+    case RGB_LYR: {
+      if (record->event.pressed) {
+        #ifdef RGBLIGHT_ENABLE
+          rgblight_enable();
+          rgblight_mode(1);
+        #endif
+        layer_dependant_rgblight = true;
+      }
+      return false;
+      break;
+    }
+    case MAIL1:
+      if (record->event.pressed) {
+        SEND_STRING ("maurice@debijl.net");
+      }
+      return false;
+      break;
+    case MAIL2:
+      if (record->event.pressed) {
+        SEND_STRING ("maurice@conveniencefactory.com");
+      }
+      return false;
+      break;
+    case PWD1:
+      if (record->event.pressed) {
+        SEND_STRING ("M0n573r");
+      }
+      return false;
+      break;
+    case PWD2:
+      if (record->event.pressed) {
+        SEND_STRING ("M13k573r");
+      }
+      return false;
+      break;
   }
   return true;
 }
@@ -531,50 +556,66 @@ uint32_t layer_state_set_user(uint32_t state) {
   switch (layer) {
       case 0:
         #ifdef RGBLIGHT_COLOR_LAYER_0
+        if (layer_dependant_rgblight) {
           rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
+        }
         #else
         #ifdef RGBLIGHT_ENABLE
+        if (layer_dependant_rgblight) {
           rgblight_init();
+        }
         #endif
         #endif
         break;
       case 1:
         ergodox_right_led_1_on();
         #ifdef RGBLIGHT_COLOR_LAYER_1
+        if (layer_dependant_rgblight) {
           rgblight_setrgb(RGBLIGHT_COLOR_LAYER_1);
+        }
         #endif
         break;
       case 2:
         ergodox_right_led_2_on();
         #ifdef RGBLIGHT_COLOR_LAYER_2
+        if (layer_dependant_rgblight) {
           rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
+        }
         #endif
         break;
       case 3:
         ergodox_right_led_3_on();
         #ifdef RGBLIGHT_COLOR_LAYER_3
+        if (layer_dependant_rgblight) {
           rgblight_setrgb(RGBLIGHT_COLOR_LAYER_3);
+        }
         #endif
         break;
       case 4:
         ergodox_right_led_1_on();
         ergodox_right_led_2_on();
         #ifdef RGBLIGHT_COLOR_LAYER_4
+        if (layer_dependant_rgblight) {
           rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
+        }
         #endif
         break;
       case 5:
         ergodox_right_led_1_on();
         ergodox_right_led_3_on();
         #ifdef RGBLIGHT_COLOR_LAYER_5
+        if (layer_dependant_rgblight) {
           rgblight_setrgb(RGBLIGHT_COLOR_LAYER_5);
+        }
         #endif
         break;
       case 6:
         ergodox_right_led_2_on();
         ergodox_right_led_3_on();
         #ifdef RGBLIGHT_COLOR_LAYER_6
+        if (layer_dependant_rgblight) {
           rgblight_setrgb(RGBLIGHT_COLOR_LAYER_6);
+        }
         #endif
         break;
       case 7:
@@ -582,7 +623,9 @@ uint32_t layer_state_set_user(uint32_t state) {
         ergodox_right_led_2_on();
         ergodox_right_led_3_on();
         #ifdef RGBLIGHT_COLOR_LAYER_7
+        if (layer_dependant_rgblight) {
           rgblight_setrgb(RGBLIGHT_COLOR_LAYER_6);
+        }
         #endif
         break;
       default:

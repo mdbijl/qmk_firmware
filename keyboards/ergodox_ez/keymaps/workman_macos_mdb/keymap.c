@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                        |      |      |       |      |      |
      *                                 ,------|------|------|       |------+------+------.
      *                                 |      |      | Cut  |       |cmd + |      |      |
-     *                                 |Space |      |------|       |------|  Esc |Backsp|
+     *                                 |Delete|      |------|       |------|  Esc |Backsp|
      *                                 |      |      | Match|       |cmd - |      |   ace|
      *                                 `--------------------'       `--------------------'
      */
@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        XXXXXXX, MB_NONE, MB_REDO,  MB_ALTL, MB_ALTR,
                                             XXXXXXX, XXXXXXX,
                                                      MB_CUT,
-                                   KC_SPC,  XXXXXXX, MB_MATCH,
+                                   KC_DELT, XXXXXXX, MB_MATCH,
        // right hand
        XXXXXXX, KC_CIRC, KC_AMPR,KC_ASTR, KC_LPRN,  KC_RPRN, KC_TILD,
        XXXXXXX, XXXXXXX, KC_PLUS, KC_MINS, XXXXXXX, KC_COLN, KC_PIPE,
@@ -171,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        |      | Alt  |       | Alt  |      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |Snippt|       |      |      |      |
- *                                 |      | Shift|------|       |------|      |      |
+ *                                 | Space| Shift|------|       |------|      |      |
  *                                 |      |      |Mpaste|       | Ctrl |      |      |
  *                                 `--------------------'       `--------------------'
  */
@@ -183,9 +183,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    TO(MACR), MB_CMDA, MB_CMDS, MB_CMDH, MB_CMDT, MB_CMDG,
    TO(BASE), MB_CMDZ, MB_CMDX, MB_CMDM, MB_CMDC, MB_CMDV, XXXXXXX,
    XXXXXXX,  XXXXXXX, XXXXXXX, MB_CTLT, MB_CTRT,
-                                       XXXXXXX, KC_LALT,
-                                                MB_SNIP,
-                              XXXXXXX, KC_LSFT, MB_PASTE,
+                                        XXXXXXX, KC_LALT,
+                                                 MB_SNIP,
+                              KC_SPACE, KC_LSFT, MB_PASTE,
    // right hand
    XXXXXXX, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
    XXXXXXX, MB_CMDJ, MB_CMDF, MB_CMDU, MB_CMDP, XXXXXXX, KC_F12,

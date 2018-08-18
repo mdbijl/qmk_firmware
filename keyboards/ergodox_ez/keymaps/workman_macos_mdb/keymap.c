@@ -5,13 +5,18 @@
 
 #include "key_combo_definitions.h"
 
-// For use in process_record_user
-#define COMMAND ((keyboard_report->mods & MOD_BIT(KC_LGUI)) || (keyboard_report->mods & MOD_BIT(KC_RGUI)))
-#define OPTION  ((keyboard_report->mods & MOD_BIT(KC_LALT)) || (keyboard_report->mods & MOD_BIT(KC_RALT)))
-#define NO_MODIFIERS ((keyboard_report->mods != MOD_BIT(KC_LGUI)) && (keyboard_report->mods != MOD_BIT(KC_RGUI)) && (keyboard_report->mods != MOD_BIT(KC_LALT)) && (keyboard_report->mods != MOD_BIT(KC_RALT)) && (keyboard_report->mods != MOD_BIT(KC_LSHIFT)) && (keyboard_report->mods != MOD_BIT(KC_RSHIFT)) && (keyboard_report->mods != MOD_BIT(KC_LCTRL)) && (keyboard_report->mods != MOD_BIT(KC_RCTRL)))
+/* Layers */
 
+enum layers {
+  BASE = 0,
+  SYMB,
+  FUNC,
+  MACR,
+  MDIA,
+  CNFG,
+};
 
-/* reregistering_helper */
+/* Reregistering keys */
 
 static bool reregisterLGui;
 static bool reregisterRGui;
@@ -41,17 +46,10 @@ void reregister_if_needed(void) {
   if (reregisterLAlt)   { register_code(KC_LALT); }
 }
 
-enum layers {
-  BASE = 0,
-  SYMB,
-  FUNC,
-  MACR,
-  MDIA,
-  CNFG,
-};
-
 enum custom_keycodes {
-  EPRM = SAFE_RANGE,
+  LOWER = SAFE_RANGE,
+  RAISE,
+  EPRM,
   VRSN,
   RGB_SLD,
   CB_PASTE,  // Combo
@@ -65,7 +63,7 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Keymap 0: Basic layer
+/* Keymap Base layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |   Esc  |   1  |   2  |   3  |   4  |   5  |      |           |      |   6  |   7  |   8  |   9  |   0  |    `   |
@@ -88,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[BASE] = LAYOUT_ergodox(  // layer 0 : default
+[BASE] = LAYOUT_ergodox(
         // left hand
         KC_ESC,         KC_1,         KC_2,    KC_3,   KC_4,   KC_5,   XXXXXXX,
         KC_TAB,         KC_Q,         KC_D,    KC_R,   KC_W,   KC_B,   XXXXXXX,
@@ -108,14 +106,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_PPLS,
              CTL_MN,      KC_ENT, KC_SPC
     ),
-    /* Keymap 1: Symbol Layer
+
+    /* Keymap Symbol Layer
      *
      * ,--------------------------------------------------.           ,--------------------------------------------------.
      * |        |   !  |   @  |   #  |   $  |   %  |      |           |      |   ^  |   &  |   *  |   (  |   )  |    ~   |
      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
-     * |   L0   |      |      |   =  |   _  |      |      |           |      |      |   +  |   -  |      |   :  |    |   |
+     * |  BaseL |      |      |   =  |   _  |      |      |           |      |      |   +  |   -  |      |   :  |    |   |
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-     * |  L+    |   [  |   ]  |   {  |   }  |      |------|           |------|      |   (  |   )  |      |      |    "   |
+     * |  FuncL  |   [  |   ]  |   {  |   }  |      |------|           |------|      |   (  |   )  |      |      |    "   |
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
      * |        |      |      |      |      |      |      |           |      |      |      |   <  |  >   |   ?  |        |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -130,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                 `--------------------'       `--------------------'
      */
     // SYMBOLS
-[SYMB] = LAYOUT_ergodox(
+    [SYMB] = LAYOUT_ergodox(
        // left hand
        TO(BASE),KC_EXLM, KC_AT,    KC_HASH, KC_DLR,  KC_PERC, XXXXXXX,
        TO(BASE),XXXXXXX, XXXXXXX,  KC_EQL,  KC_UNDS, XXXXXXX, XXXXXXX,
@@ -149,7 +148,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        XXXXXXX, XXXXXXX,
        MB_ZMI,
        MB_ZMO, KC_ESC,  KC_BSPC
-),
+    ),
+
 /* Keymap 2: Function Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -192,7 +192,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    XXXXXXX,
    KC_LCTRL,XXXXXXX, XXXXXXX
 ),
-/* Keymap 3: Macros
+
+/* Macros
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |     |        |
@@ -234,7 +235,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    XXXXXXX,
    XXXXXXX,XXXXXXX, XXXXXXX
 ),
-/* Keymap 3: Media and mouse keys
+/* Keymap Media and mouse keys
  *ergodox_ez/workman_macos_mdb @ 0.6.92-59-g9584d1-dirty
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |   L0   |Brigh-|Brigh+|      |      |      |      |           |      |      |      | Mute | VolDn| VolUp|        |
@@ -275,7 +276,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        XXXXXXX,
        XXXXXXX, XXXXXXX, XXXXXXX
 ),
-/* Keymap 4: Keyboard config
+
+/* Keymap Keyboard config
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |  Light |      |      |      |      |      |      |           |      |      |      |      |      |      |Version |
@@ -296,11 +298,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-// KEYBOARD CONFIG
 [CNFG] = LAYOUT_ergodox(
        RGB_SLD,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
        TO(BASE), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-       TO(BASE), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
        TO(MDIA), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
        XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                            XXXXXXX, XXXXXXX,
@@ -316,6 +317,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        XXXXXXX,
        XXXXXXX, XXXXXXX, XXXXXXX
 ),
+
 };
 
 const uint16_t PROGMEM fn_actions[] = {

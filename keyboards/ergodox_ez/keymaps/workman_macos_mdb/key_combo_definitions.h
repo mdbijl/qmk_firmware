@@ -62,3 +62,8 @@
 #define MB_CMDX  LGUI(KC_X)
 #define MB_CMDY  LGUI(KC_Y)
 #define MB_CMDZ  LGUI(KC_Z)
+
+// For use in process_record_user
+#define COMMAND ((keyboard_report->mods & MOD_BIT(KC_LGUI)) || (keyboard_report->mods & MOD_BIT(KC_RGUI)))
+#define OPTION  ((keyboard_report->mods & MOD_BIT(KC_LALT)) || (keyboard_report->mods & MOD_BIT(KC_RALT)))
+#define NO_MODIFIERS ((keyboard_report->mods != MOD_BIT(KC_LGUI)) && (keyboard_report->mods != MOD_BIT(KC_RGUI)) && (keyboard_report->mods != MOD_BIT(KC_LALT)) && (keyboard_report->mods != MOD_BIT(KC_RALT)) && (keyboard_report->mods != MOD_BIT(KC_LSHIFT)) && (keyboard_report->mods != MOD_BIT(KC_RSHIFT)) && (keyboard_report->mods != MOD_BIT(KC_LCTRL)) && (keyboard_report->mods != MOD_BIT(KC_RCTRL)))

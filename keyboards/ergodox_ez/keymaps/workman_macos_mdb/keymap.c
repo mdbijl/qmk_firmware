@@ -377,6 +377,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
   return MACRO_NONE;
 };
 
+void reset_reregistering(void) {
+  reregisterRGui = false;
+  reregisterLGui = false;
+  reregisterRAlt = false;
+  reregisterLAlt = false;
+}
+
 bool unregister_if_needed(uint8_t code) {
   if (keyboard_report->mods & MOD_BIT(code)) {
     unregister_code(code);
@@ -387,27 +394,30 @@ bool unregister_if_needed(uint8_t code) {
 }
 
 void reregister_if_needed(void) {
-  if (reregisterRGui)   { register_code(KC_LGUI); }
-  if (reregisterLGui)   { register_code(KC_RGUI); }
+  if (reregisterRGui)   { register_code(KC_RGUI); }
+  if (reregisterLGui)   { register_code(KC_LGUI); }
   if (reregisterRAlt)   { register_code(KC_RALT); }
   if (reregisterLAlt)   { register_code(KC_LALT); }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+  reset_reregistering();
+
   switch (keycode) {
 
     case CB_PASTE:
       if (record->event.pressed) {
 
-        if (COMMAND && OPTION) {}
+        if (COMMAND && OPTION) { return true; }
 
         // Alfred paste
         else if (COMMAND ) {
           reregisterLGui = unregister_if_needed(KC_LGUI);
           reregisterRGui = unregister_if_needed(KC_RGUI);
           SEND_STRING(SS_LCTRL(SS_LSFT(SS_LGUI("c"))));
-          reregister_if_needed();
-          return true;
+          reregister_if_needed(); // causes problems of the GUI button to be stucked
+          return false;
         }
 
         // Match
@@ -416,22 +426,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           reregisterRAlt = unregister_if_needed(KC_RALT);
           SEND_STRING(SS_LGUI(SS_LSFT("v")));
           reregister_if_needed();
-          return true;
+          return false;
         }
 
         // Normal paste
         else if (NO_MODIFIERS) {
           SEND_STRING(SS_LGUI("v"));
-          return true;
+          return false;
         }
       }
-      return false;
+      return true;
       break;
 
     case CB_COPY:
       if (record->event.pressed) {
 
-        if (COMMAND && OPTION) {}
+        if (COMMAND && OPTION) { return true; }
 
         // Alfred snippets
         else if (COMMAND) {
@@ -439,7 +449,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           reregisterRGui = unregister_if_needed(KC_RGUI);
           SEND_STRING(SS_LSFT(SS_LCTRL(SS_LALT(SS_LGUI("c")))));
           reregister_if_needed();
-          return true;
+          return false;
         }
 
         // Cut
@@ -448,23 +458,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           reregisterRAlt = unregister_if_needed(KC_RALT);
           SEND_STRING(SS_LGUI("x"));
           reregister_if_needed();
-          return true;
+          return false;
         }
 
         // Copy
         else if (NO_MODIFIERS) {
           SEND_STRING(SS_LGUI("c"));
-          return true;
+          return false;
         }
       }
-      return false;
+      return true;
       break;
 
       case CB_UNDO:
         if (record->event.pressed) {
 
-          if (COMMAND && OPTION) {}
-          else if (COMMAND) {}
+          if (COMMAND && OPTION) { return true; }
+          else if (COMMAND) { return true; }
 
           // Redo
           else if (OPTION) {
@@ -472,23 +482,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             reregisterRAlt = unregister_if_needed(KC_RALT);
             SEND_STRING(SS_LSFT(SS_LGUI("z")));
             reregister_if_needed();
-            return true;
+            return false;
           }
 
           // Undo
           else if (NO_MODIFIERS) {
             SEND_STRING(SS_LGUI("z"));
-            return true;
+            return false;
           }
         }
-        return false;
+        return true;
         break;
 
       case CB_ALL:
         if (record->event.pressed) {
 
-          if (COMMAND && OPTION) {}
-          else if (COMMAND) {}
+          if (COMMAND && OPTION) { return true; }
+          else if (COMMAND) {return true; }
 
           // Redo
           else if (OPTION) {
@@ -508,7 +518,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
         break;
 
-      case EPRM:
+    case EPRM:
       if (record->event.pressed) {
         eeconfig_init();
       }

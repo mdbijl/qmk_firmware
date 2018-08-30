@@ -77,19 +77,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // SYMBOLS
     [SYMB] = LAYOUT_ergodox(
        // left hand
-       TO(BASE),KC_EXLM, KC_AT,    KC_HASH, KC_DLR,  KC_PERC, XXXXXXX,
+       XXXXXXX, KC_EXLM, KC_AT,    KC_HASH, KC_DLR,  KC_PERC, XXXXXXX,
        TO(BASE),XXXXXXX, XXXXXXX,  KC_EQL,  KC_UNDS, XXXXXXX, XXXXXXX,
        TO(FUNC),KC_LBRC, KC_RBRC,  KC_LCBR, KC_RCBR, XXXXXXX,
-       _______, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, _______,
+       _______, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
        XXXXXXX, MB_NONE, MB_REDO,  MB_ALTL, MB_ALTR,
                                             XXXXXXX, XXXXXXX,
                                                      MB_CUT,
-                                   KC_DELT, XXXXXXX, MB_MATCH,
+                                   KC_BSPC, XXXXXXX, MB_MATCH,
        // right hand
        XXXXXXX, KC_CIRC, KC_AMPR,KC_ASTR, KC_LPRN,  KC_RPRN, KC_TILD,
        XXXXXXX, XXXXXXX, KC_PLUS, KC_MINS, XXXXXXX, KC_COLN, KC_PIPE,
                 XXXXXXX, KC_LPRN, KC_RPRN, XXXXXXX, XXXXXXX, KC_DQT,
-       XXXXXXX, XXXXXXX, XXXXXXX, KC_LT,   KC_GT,   KC_QUES, XXXXXXX,
+       XXXXXXX, XXXXXXX, XXXXXXX, KC_LT,   KC_GT,   KC_QUES, _______,
                          KC_WH_D, KC_WH_U, MB_TOP,  MB_BTM,  XXXXXXX,
        XXXXXXX, XXXXXXX,
        MB_ZMI,

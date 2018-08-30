@@ -1,8 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "reregistering.h"
-#include "debug.h"
-#include "action_layer.h"
-#include "version.h"
 
 /* Reregistering keys */
 

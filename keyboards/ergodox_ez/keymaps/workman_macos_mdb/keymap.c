@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        XXXXXXX, MB_NONE, MB_REDO,  MB_ALTL, MB_ALTR,
                                             XXXXXXX, XXXXXXX,
                                                      MB_CUT,
-                                   KC_BSPC, XXXXXXX, MB_MATCH,
+                                   KC_DEL,  XXXXXXX, MB_MATCH,
        // right hand
        XXXXXXX, KC_CIRC, KC_AMPR,KC_ASTR, KC_LPRN,  KC_RPRN, KC_TILD,
        XXXXXXX, XXXXXXX, KC_PLUS, KC_MINS, XXXXXXX, KC_COLN, KC_PIPE,

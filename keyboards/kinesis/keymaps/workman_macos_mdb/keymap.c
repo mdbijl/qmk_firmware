@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MO(FUNC), KC_A,     KC_S,     KC_H,     KC_T,     KC_G,                                                                      KC_Y,     KC_N,     KC_E,     KC_O,     KC_I,     KC_QUOT,
     MO(SYMB), CTL_Z,    KC_X,     KC_M,     KC_C,     KC_V,                                                                      KC_K,     KC_L,     KC_COMM,  KC_DOT,   CTL_SL,   MO(SYMB),
               CB_ALL,   CB_UNDO,  KC_LEFT,  KC_RGHT,                                                                                       KC_UP,    KC_DOWN,  MB_HOME,  MB_END,
-                                                      KC_LGUI,  KC_LALT,                                               KC_RGUI,  KC_RALT,
+                                                      KC_LGUI,  KC_LALT,                                               KC_RALT,  KC_RGUI,
                                                                 CB_COPY,                                               KC_PPLS,
                                             KC_BSPC,  KC_LSFT,  CB_PASTE,                                              CTL_MN,   KC_ENTER, KC_SPC
   ),
@@ -63,11 +63,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *          | S.All| Undo | Left | Right|                                         |ScrolD|ScrolU|  top |bottom|
   *          `---------------------------'                                         `---------------------------'
   *                                        ,-------------.         ,-------------.
-  *                                        |  GUI | Alt  |         | Gui  | Alt  |
+  *                                        |      |      |         |      |      |
   *                                 ,------|------|------|         |------+------+------.
-  *                                 |      |      | Copy |         |   +  |      |      |
-  *                                 | BkSp | Shift|------|         |------|Return| Space|
-  *                                 |      |      | Paste|         |ctrl -|      |      |
+  *                                 |      |      | Cut  |         | cmd+ |      |      |
+  *                                 |Delete| Shift|------|         |------| Esc  |BSpace|
+  *                                 |      |      | Match|         | cmd- |      |      |
   *                                 `--------------------'         `--------------------'
   */
   [SYMB] = LAYOUT_pretty(
@@ -79,7 +79,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               MB_NONE,  MB_REDO,  MB_ALTL,  MB_ALTR,                                                                                       KC_WH_D,  KC_WH_U,  MB_TOP,   MB_BTM,
                                                       XXXXXXX,  XXXXXXX,                                               XXXXXXX,  XXXXXXX,
                                                                 MB_CUT,                                                MB_ZMI,
-                                            KC_BSPC,  XXXXXXX,  MB_MATCH,                                              MB_ZMO,   KC_ESC,   KC_BSPC
+                                            KC_DEL,   XXXXXXX,  MB_MATCH,                                              MB_ZMO,   KC_ESC,   KC_BSPC
+  ),
+
+  /****************************************************************************************************
+  *
+  * Keymap: Function layer
+  *
+  * ,-------------------------------------------------------------------------------------------------------------------.
+  * | Esc    |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F8  |  F9  |  F10 |  F12 | PSCR | SLCK | PAUS |  FN0 |  BOOT  |
+  * |--------+------+------+------+------+------+---------------------------+------+------+------+------+------+--------|
+  * | =+     |   !  |   @  |   #  |   $  |   %  |                           |   ^  |   &  |   *  |   (  |   )  |   ~    |
+  * |--------+------+------+------+------+------|                           +------+------+------+------+------+--------|
+  * | Tab    |      |      |   =  |   _  |      |                           |      |   +  |   -  |      |      |   |    |
+  * |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
+  * |   L2   |   [  |   ]  |   {  |   }  |      |                           |      |   (  |   )  |      |      |   "    |
+  * |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
+  * |        |      |      |      |      |      |                           |      |      |   <  |  >   |   ?  |        |
+  * `--------+------+------+------+------+-------                           `------+------+------+------+------+--------'
+  *          | S.All| Undo | ^left|^right|                                         |ScrolD|ScrolU|  top |bottom|
+  *          `---------------------------'                                         `---------------------------'
+  *                                        ,-------------.         ,-------------.
+  *                                        |      | Alt  |         | Alt  |      |
+  *                                 ,------|------|------|         |------+------+------.
+  *                                 |      |      |Snippt|         |      |      |      |
+  *                                 | BkSp | Shift|------|         |------|      |      |
+  *                                 |      |      |MPaste|         | ctrl |      |      |
+  *                                 `--------------------'         `--------------------'
+  */
+  [FUNC] = LAYOUT_pretty(
+    XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,         KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_PSCR,  KC_SLCK,  KC_PAUS,  KC_FN0,   KC_1,
+    XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,                                                                     KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,
+    TO(BASE), MB_CMDQ,  MB_CMDD,  MB_CMDR,  MB_CMDW,  MB_CMDB,                                                                   MB_CMDJ,  MB_CMDF,  MB_CMDU,  MB_CMDP,  XXXXXXX,  KC_F12,
+    TO(MACR), MB_CMDA,  MB_CMDS,  MB_CMDH,  MB_CMDT,  MB_CMDG,                                                                   MB_CMDY,  MB_CMDN,  MB_CMDE,  MB_CMDO,  MB_CMDI,  KC_F13,
+    TO(BASE), MB_CMDZ,  MB_CMDX,  MB_CMDM,  MB_CMDC,  MB_CMDV,                                                                   MB_CMDK,  MB_CMDL,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+              XXXXXXX,  XXXXXXX,  MB_CTLT,  MB_CTRT,                                                                                       KC_PGUP,  KC_PGDN,  XXXXXXX,  XXXXXXX,
+                                                      KC_LGUI,  XXXXXXX,                                               KC_RALT,  XXXXXXX,
+                                                                MB_SNIP,                                               XXXXXXX,
+                                            KC_SPC,   KC_LSFT,  MB_PASTE,                                              KC_LCTRL, XXXXXXX,  XXXXXXX
   )
 
 };

@@ -1,7 +1,12 @@
 # Build Options
-#   change to "no" to disable the options, or define them in the Makefile in 
+#   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
+SRC = reregistering.c \
+			matrix.c \
+  		i2c_master.c \
+			custom_keys.c
+			
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)

@@ -4,6 +4,7 @@
 #include "version.h"
 
 #include "key_combo_definitions.h"
+#include "reregistering.h"
 
 /* Layers */
 
@@ -16,37 +17,7 @@ enum layers {
   CNFG,
 };
 
-/* Reregistering keys */
-
-static bool reregister_lgui;
-static bool reregister_rgui;
-static bool reregister_lalt;
-static bool reregister_ralt;
-
 static bool layer_dependant_rgblight = true;
-
-void reset_reregistering(void) {
-  reregister_rgui = false;
-  reregister_lgui = false;
-  reregister_ralt = false;
-  reregister_lalt = false;
-}
-
-bool unregister_if_needed(uint8_t code) {
-  if (keyboard_report->mods & MOD_BIT(code)) {
-    unregister_code(code);
-    return true;
-  } else {
-    return false;
-  }
-}
-
-void reregister_if_needed(void) {
-  if (reregister_rgui)   { register_code(KC_RGUI); }
-  if (reregister_lgui)   { register_code(KC_LGUI); }
-  if (reregister_ralt)   { register_code(KC_RALT); }
-  if (reregister_lalt)   { register_code(KC_LALT); }
-}
 
 enum custom_keycodes {
   LOWER = SAFE_RANGE,
@@ -119,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
      * |  BaseL |      |      |   =  |   _  |      |      |           |      |      |   +  |   -  |      |   :  |    |   |
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
-     * |  FuncL  |   [  |   ]  |   {  |   }  |      |------|           |------|      |   (  |   )  |      |      |    "   |
+     * |  FuncL  |   [  |   ]  |  {  |   }  |      |------|           |------|      |   (  |   )  |      |      |    "   |
      * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
      * |        |      |      |      |      |      |      |           |      |      |      |   <  |  >   |   ?  |        |
      * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'

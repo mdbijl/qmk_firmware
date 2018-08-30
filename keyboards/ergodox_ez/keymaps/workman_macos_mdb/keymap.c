@@ -6,19 +6,7 @@
 #include "key_combo_definitions.h"
 #include "reregistering.h"
 #include "custom_keys.h"
-
-static bool layer_dependant_rgblight = true;
-
-/* Layers */
-
-enum layers {
-  BASE = 0,
-  SYMB,
-  FUNC,
-  MACR,
-  MDIA,
-  CNFG,
-};
+#include "layers.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap Base layer

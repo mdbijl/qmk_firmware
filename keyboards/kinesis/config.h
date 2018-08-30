@@ -22,9 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define MANUFACTURER    You
-#define PRODUCT         Kinesis Advantage/Contoured
-#define DESCRIPTION     A custom keyboard
+#define MANUFACTURER    Kinesis Corporation
+#define PRODUCT         Kinesis Advantage
+#define DESCRIPTION     QMK keyboard firmware for Kinesis Advantage
 
 // Mouse
 #define MOUSEKEY_DELAY          60

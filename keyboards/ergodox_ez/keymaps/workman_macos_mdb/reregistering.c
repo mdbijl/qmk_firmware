@@ -3,6 +3,11 @@
 
 /* Reregistering keys */
 
+static bool reregister_lgui = false;
+static bool reregister_rgui = false;
+static bool reregister_lalt = false;
+static bool reregister_ralt = false;
+
 void reset_reregistering(void) {
   reregister_rgui = false;
   reregister_lgui = false;

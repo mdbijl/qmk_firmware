@@ -17,3 +17,5 @@ enum custom_keycodes {
   RGB_LYR,   // Layer dependant underglow off-
   RGB_W,     // White
 };
+
+static bool layer_dependant_rgblight;

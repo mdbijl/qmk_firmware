@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                                 `--------------------'         `--------------------'
   */
   [BASE] = LAYOUT_pretty(
-    KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,         KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_PSCR,  KC_SLCK,  KC_PAUS,  KC_FN0,   KC_1,
+    KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,         KC_F9,    KC_F10,   KC_F11,   KC_F12,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,                                                                      KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_GRV,
     KC_TAB,   KC_Q,     KC_D,     KC_R,     KC_W,     KC_B,                                                                      KC_J,     KC_F,     KC_U,     KC_P,     KC_SCLN,  KC_BSLS,
     MO(FUNC), KC_A,     KC_S,     KC_H,     KC_T,     KC_G,                                                                      KC_Y,     KC_N,     KC_E,     KC_O,     KC_I,     KC_QUOT,
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                                 `--------------------'         `--------------------'
   */
   [SYMB] = LAYOUT_pretty(
-    KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,         KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_PSCR,  KC_SLCK,  KC_PAUS,  KC_FN0,   KC_1,
+    KC_ESC,   KC_F14,   KC_F15,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,       XXXXXXX,  KC_MUTE,  KC_VOLD,  KC_VOLU,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,                                                                   KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_TILD,
     TO(BASE), XXXXXXX,  XXXXXXX,  KC_EQL,   KC_UNDS,  XXXXXXX,                                                                   XXXXXXX,  KC_PLUS,  KC_MINS,  XXXXXXX,  KC_COLN,  KC_PIPE,
     TO(FUNC), KC_LBRC,  KC_RBRC,  KC_LCBR,  KC_RCBR,  XXXXXXX,                                                                   XXXXXXX,  KC_LPRN,  KC_RPRN,  XXXXXXX,  XXXXXXX,  KC_DQT,
@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                                 `--------------------'         `--------------------'
   */
   [FUNC] = LAYOUT_pretty(
-    XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,         KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_PSCR,  KC_SLCK,  KC_PAUS,  KC_FN0,   KC_1,
+    XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,         KC_F9,    KC_F10,   KC_F11,   KC_F12,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,                                                                     KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,
     TO(BASE), MB_CMDQ,  MB_CMDD,  MB_CMDR,  MB_CMDW,  MB_CMDB,                                                                   MB_CMDJ,  MB_CMDF,  MB_CMDU,  MB_CMDP,  XXXXXXX,  KC_F12,
     TO(MACR), MB_CMDA,  MB_CMDS,  MB_CMDH,  MB_CMDT,  MB_CMDG,                                                                   MB_CMDY,  MB_CMDN,  MB_CMDE,  MB_CMDO,  MB_CMDI,  KC_F13,
@@ -184,13 +184,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * Keymap: Media layer
   *
   * ,-------------------------------------------------------------------------------------------------------------------.
-  * |        |      |      |      |      |      |      |      |      |      |      |      |      |      |      |        |
+  * |        |Brigh-|Brigh+|      |      |      |      |      |      |      |      |      |      |      |      |        |
   * |--------+------+------+------+------+------+---------------------------+------+------+------+------+------+--------|
-  * |        |      |      |      |      |      |                           |      |      |      |      |      |        |
+  * |        |Brigh-|Brigh+|      |      |      |                           |      |      |      |      |      |        |
   * |--------+------+------+------+------+------|                           +------+------+------+------+------+--------|
-  * |        |      |      |      |      |      |                           |      |      |      |      |      |        |
+  * |        |      |      | MsUp |      |      |                           |      |      | MsUp |      |      |        |
   * |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
-  * |        |      |      |      |      |      |                           |      |      |      |      |      |        |
+  * |        |      |MsLeft|MsDown|MsRght|      |                           |      |MsLeft|MsDown|MsRght|      |        |
   * |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
   * |        |      |      |      |      |      |                           |      |      |      |      |      |        |
   * `--------+------+------+------+------+-------                           `------+------+------+------+------+--------'
@@ -205,53 +205,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                                 `--------------------'         `--------------------'
   */
   [MDIA] = LAYOUT_pretty(
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    TO(BASE), XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    TO(CNFG), XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  KC_F14,   KC_F15,   XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  KC_MUTE,  KC_VOLD,  KC_VOLU,  XXXXXXX,
+    TO(BASE), XXXXXXX,  XXXXXXX,  KC_MS_U,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  KC_MS_U,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_R,  XXXXXXX,                                                                 XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_R,  XXXXXXX,  XXXXXXX,
     TO(MACR), XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-              XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                                     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-                                                      XXXXXXX,  XXXXXXX,                                             XXXXXXX,  XXXXXXX,
-                                                                XXXXXXX,                                             XXXXXXX,
-                                            XXXXXXX,  XXXXXXX,  XXXXXXX,                                             XXXXXXX,  XXXXXXX,  XXXXXXX
-  ),
-
-  /****************************************************************************************************
-  *
-  * Keymap: Media layer
-  *
-  * ,-------------------------------------------------------------------------------------------------------------------.
-  * |        |      |      |      |      |      |      |      |      |      |      |      |      |      |      |        |
-  * |--------+------+------+------+------+------+---------------------------+------+------+------+------+------+--------|
-  * |        |      |      |      |      |      |                           |      |      |      |      |      |        |
-  * |--------+------+------+------+------+------|                           +------+------+------+------+------+--------|
-  * |        |      |      |      |      |      |                           |      |      |      |      |      |        |
-  * |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
-  * |        |      |      |      |      |      |                           |      |      |      |      |      |        |
-  * |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
-  * |        |      |      |      |      |      |                           |      |      |      |      |      |        |
-  * `--------+------+------+------+------+-------                           `------+------+------+------+------+--------'
-  *          |      |      |      |      |                                         |      |      |      |      |
-  *          `---------------------------'                                         `---------------------------'
-  *                                        ,-------------.         ,-------------.
-  *                                        |      |      |         |      |      |
-  *                                 ,------|------|------|         |------+------+------.
-  *                                 |      |      |      |         |      |      |      |
-  *                                 |      |      |------|         |------|      |      |
-  *                                 |      |      |      |         |      |      |      |
-  *                                 `--------------------'         `--------------------'
-  */
-  [CNFG] = LAYOUT_pretty(
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    TO(BASE), XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    TO(MDIA), XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-              XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                                     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+              XXXXXXX,  XXXXXXX,  KC_BTN1,  KC_BTN2,                                                                                     KC_BTN1,  KC_BTN2,  XXXXXXX,  XXXXXXX,
                                                       XXXXXXX,  XXXXXXX,                                             XXXXXXX,  XXXXXXX,
                                                                 XXXXXXX,                                             XXXXXXX,
                                             XXXXXXX,  XXXXXXX,  XXXXXXX,                                             XXXXXXX,  XXXXXXX,  XXXXXXX
   )
+  //,
+  //
+  // /****************************************************************************************************
+  // *
+  // * Keymap: Media layer
+  // *
+  // * ,-------------------------------------------------------------------------------------------------------------------.
+  // * |        |      |      |      |      |      |      |      |      |      |      |      |      |      |      | Version|
+  // * |--------+------+------+------+------+------+---------------------------+------+------+------+------+------+--------|
+  // * |        |      |      |      |      |      |                           |      |      |      |      |      |  Eprom |
+  // * |--------+------+------+------+------+------|                           +------+------+------+------+------+--------|
+  // * |        |      |      |      |      |      |                           |      |      |      |      |      |        |
+  // * |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
+  // * |        |      |      |      |      |      |                           |      |      |      |      |      |        |
+  // * |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
+  // * |        |      |      |      |      |      |                           |      |      |      |      |      |        |
+  // * `--------+------+------+------+------+-------                           `------+------+------+------+------+--------'
+  // *          |      |      |      |      |                                         |      |      |      |      |
+  // *          `---------------------------'                                         `---------------------------'
+  // *                                        ,-------------.         ,-------------.
+  // *                                        |      |      |         |      |      |
+  // *                                 ,------|------|------|         |------+------+------.
+  // *                                 |      |      |      |         |      |      |      |
+  // *                                 |      |      |------|         |------|      |      |
+  // *                                 |      |      |      |         |      |      |      |
+  // *                                 `--------------------'         `--------------------'
+  // */
+  // [CNFG] = LAYOUT_pretty(
+  //   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  VRSN,
+  //   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  EPRM,
+  //   TO(BASE), XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+  //   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+  //   TO(MDIA), XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+  //             XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                                     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+  //                                                     XXXXXXX,  XXXXXXX,                                             XXXXXXX,  XXXXXXX,
+  //                                                               XXXXXXX,                                             XXXXXXX,
+  //                                           XXXXXXX,  XXXXXXX,  XXXXXXX,                                             XXXXXXX,  XXXXXXX,  XXXXXXX
+  // )
 
 };
 

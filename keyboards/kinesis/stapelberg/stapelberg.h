@@ -5,6 +5,12 @@
 
 #define ___ KC_NO
 
+
+void kinesis_led_1_on(void);
+void kinesis_led_2_on(void);
+void kinesis_led_3_on(void);
+void kinesis_led_4_on(void);
+
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguments as on the physical keyboard
 // The second converts the arguments into the 2-D scanned array

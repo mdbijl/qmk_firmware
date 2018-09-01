@@ -5,6 +5,29 @@
 #include "custom_keys.h"
 #include "layers.h"
 
+void kinesis_led_1_on(void) { DDRF|= (1<<3); }
+void kinesis_led_1_off(void) { DDRF &= ~(1<<3); }
+void kinesis_led_2_on(void) { DDRF|= (1<<2); }
+void kinesis_led_2_off(void) { DDRF &= ~(1<<2); }
+void kinesis_led_3_on(void) { DDRF|= (1<<1); }
+void kinesis_led_3_off(void) { DDRF &= ~(1<<1); }
+void kinesis_led_4_on(void) { DDRF|= (1<<0); }
+void kinesis_led_4_off(void) { DDRF &= ~(1<<0); }
+
+void all_leds_off(void) {
+  kinesis_led_1_off();
+  kinesis_led_2_off();
+  kinesis_led_3_off();
+  kinesis_led_4_off();
+}
+
+void all_leds_on(void) {
+  kinesis_led_1_on();
+  kinesis_led_2_on();
+  kinesis_led_3_on();
+  kinesis_led_4_on();
+}
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -110,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [FUNC] = LAYOUT_pretty(
     XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,         KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_PSCR,  KC_SLCK,  KC_PAUS,  KC_FN0,   KC_1,
     XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,                                                                     KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,
-    TO(BASE), MB_CMDQ,  MB_CMDD,  MB_CMDR,  MB_CMDW,  MB_CMDB,                                                                   MB_CMDJ,  MB_CMDF,  MB_CMDU,  MB_CMDP,  XXXXXXX,  KC_F12,
+    XXXXXXX,  MB_CMDQ,  MB_CMDD,  MB_CMDR,  MB_CMDW,  MB_CMDB,                                                                   MB_CMDJ,  MB_CMDF,  MB_CMDU,  MB_CMDP,  XXXXXXX,  KC_F12,
     _______,  MB_CMDA,  MB_CMDS,  MB_CMDH,  MB_CMDT,  MB_CMDG,                                                                   MB_CMDY,  MB_CMDN,  MB_CMDE,  MB_CMDO,  MB_CMDI,  KC_F13,
     TO(BASE), MB_CMDZ,  MB_CMDX,  MB_CMDM,  MB_CMDC,  MB_CMDV,                                                                   MB_CMDK,  MB_CMDL,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
               XXXXXXX,  XXXXXXX,  MB_CTLT,  MB_CTRT,                                                                                       KC_PGUP,  KC_PGDN,  XXXXXXX,  XXXXXXX,
@@ -126,15 +149,82 @@ const uint16_t PROGMEM fn_actions[] = {
 
 };
 
-void matrix_init_user(void) {
+void wait(int times) {
+  for(int i=0; i<times; i++) {
 
-layer_dependant_rgblight = false;
+  }
+}
+
+void matrix_init_user(void) {
+  layer_dependant_rgblight = false;
+  all_leds_off();
+
+  for (int i=0; i<3; i++) {
+    kinesis_led_1_on();
+    _delay_ms(150);
+    all_leds_off();
+    kinesis_led_2_on();
+    _delay_ms(150);
+    all_leds_off();
+    kinesis_led_3_on();
+    _delay_ms(150);
+    all_leds_off();
+    kinesis_led_4_on();
+    _delay_ms(150);
+    all_leds_off();
+    kinesis_led_3_on();
+    _delay_ms(150);
+    all_leds_off();
+    kinesis_led_2_on();
+    _delay_ms(150);
+    all_leds_off();
+  }
+
+  kinesis_led_1_on();
+  _delay_ms(150);
+  all_leds_off();
 }
 
 void matrix_scan_user(void) {
 
 }
 
-void led_set_user(uint8_t usb_led) {
+uint32_t layer_state_set_user(uint32_t state) {
 
-}
+  all_leds_off();
+
+  uint8_t layer = biton32(state);
+  switch (layer) {
+      case 0:
+        all_leds_off();
+        break;
+      case 1:
+        kinesis_led_1_on();
+        break;
+      case 2:
+        kinesis_led_2_on();
+        break;
+      case 3:
+        kinesis_led_3_on();
+        break;
+      case 4:
+        kinesis_led_4_on();
+        break;
+      case 5:
+        kinesis_led_1_on();
+        kinesis_led_2_on();
+        break;
+      case 6:
+        kinesis_led_2_on();
+        kinesis_led_3_on();
+        break;
+      case 7:
+        kinesis_led_3_on();
+        kinesis_led_4_on();
+        break;
+      default:
+        break;
+    }
+
+  return state;
+};

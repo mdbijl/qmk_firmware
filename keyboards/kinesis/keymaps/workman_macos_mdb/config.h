@@ -3,6 +3,16 @@
 
 #include "../../config.h"
 
+#define B7_AUDIO
+#define AUDIO_CLICKY
+#define AUDIO_CLICKY_ON
+
+#define AUDIO_CLICKY_FREQ_DEFAULT 0.0f
+#define AUDIO_CLICKY_FREQ_MIN AUDIO_CLICKY_FREQ_DEFAULT
+#define AUDIO_CLICKY_FREQ_MAX AUDIO_CLICKY_FREQ_MIN
+#define AUDIO_CLICKY_FREQ_FACTOR 0.0f
+#define AUDIO_CLICKY_FREQ_RANDOMNESS 0.0f
+
 #undef TAPPING_TOGGLE
 #define TAPPING_TOGGLE 2 // Nr of taps before toggling to layer -- TT()
 

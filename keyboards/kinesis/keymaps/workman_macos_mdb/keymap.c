@@ -184,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * Keymap: Media layer
   *
   * ,-------------------------------------------------------------------------------------------------------------------.
-  * |        |Brigh-|Brigh+|      |      |      |      |      |      |      |      |      |      |      |      |        |
+  * |        |Brigh-|Brigh+|      |      |      |      |      |      |MusTog|MusSel|ClkTog|ClkUp | ClkDn|      |        |
   * |--------+------+------+------+------+------+---------------------------+------+------+------+------+------+--------|
   * |        |Brigh-|Brigh+|      |      |      |                           |      |      |      |      |      |        |
   * |--------+------+------+------+------+------|                           +------+------+------+------+------+--------|
@@ -205,7 +205,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                                 `--------------------'         `--------------------'
   */
   [MDIA] = LAYOUT_pretty(
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,      XXXXXXX,   MU_TOG,  MU_MOD,   CK_TOGG,   CK_UP,  CK_DOWN,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  KC_F14,   KC_F15,   XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  KC_MUTE,  KC_VOLD,  KC_VOLU,  XXXXXXX,
     TO(BASE), XXXXXXX,  XXXXXXX,  KC_MS_U,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  KC_MS_U,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_R,  XXXXXXX,                                                                 XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_R,  XXXXXXX,  XXXXXXX,
@@ -219,7 +219,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //
   // /****************************************************************************************************
   // *
-  // * Keymap: Media layer
+  // * Keymap: Config layer
   // *
   // * ,-------------------------------------------------------------------------------------------------------------------.
   // * |        |      |      |      |      |      |      |      |      |      |      |      |      |      |      | Version|

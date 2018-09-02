@@ -356,7 +356,8 @@ uint32_t layer_state_set_user(uint32_t state) {
         kinesis_led_3_on();
         break;
       case 4:
-        kinesis_led_4_on();
+        // kinesis_led_4_on();
+        all_leds_on(); // config layer
         break;
       case 5:
         kinesis_led_1_on();

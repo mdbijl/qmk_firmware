@@ -5,6 +5,7 @@
 #include "version.h"
 #include "reregistering.h"
 #include "key_combo_definitions.h"
+#include "layers.h"
 
 static bool reregister_lgui;
 static bool reregister_rgui;
@@ -182,31 +183,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MAIL1:
       if (record->event.pressed) {
         SEND_STRING ("maurice@debijl.net");
+        layer_off (MACR);
       }
       return false;
       break;
     case MAIL2:
       if (record->event.pressed) {
         SEND_STRING ("maurice@conveniencefactory.com");
+        layer_off (MACR);
       }
       return false;
       break;
     case PWD1:
       if (record->event.pressed) {
         SEND_STRING ("M0n573r");
+        layer_off (MACR);
       }
       return false;
       break;
     case PWD2:
       if (record->event.pressed) {
         SEND_STRING ("M13k573r");
+        layer_off (MACR);
       }
       return false;
       break;
   }
   return true;
 }
- 
+
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {

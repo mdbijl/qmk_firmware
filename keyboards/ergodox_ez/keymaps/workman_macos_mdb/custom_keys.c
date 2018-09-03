@@ -11,6 +11,10 @@ static bool reregister_lgui;
 static bool reregister_rgui;
 static bool reregister_lalt;
 static bool reregister_ralt;
+static bool reregister_lshift;
+// static bool reregister_rshift;
+// static bool reregister_lctrl;
+// static bool reregister_rctrl;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -196,8 +200,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case PWD1:
       if (record->event.pressed) {
+        reregister_lshift = true; //unregister_if_needed(KC_LSHIFT);
         SEND_STRING ("M0n573r");
         layer_off (MACR);
+        reregister_if_needed();
       }
       return false;
       break;

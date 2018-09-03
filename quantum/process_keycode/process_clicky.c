@@ -30,6 +30,7 @@ float clicky_song[][2]  = {{AUDIO_CLICKY_FREQ_DEFAULT, 3}, {AUDIO_CLICKY_FREQ_DE
 #ifndef NO_MUSIC_MODE
 extern bool music_activated;
 extern bool midi_activated;
+extern bool skip_next_click;
 #endif // !NO_MUSIC_MODE
 
 void clicky_play(void) {

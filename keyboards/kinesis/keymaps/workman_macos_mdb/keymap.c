@@ -5,6 +5,8 @@
 #include "custom_keys.h"
 #include "layers.h"
 
+// extern bool music_activated;
+
 void kinesis_led_1_on(void) { DDRF|= (1<<3); }
 void kinesis_led_1_off(void) { DDRF &= ~(1<<3); }
 void kinesis_led_2_on(void) { DDRF|= (1<<2); }
@@ -316,11 +318,18 @@ void matrix_scan_user(void) {
 
 uint32_t layer_state_set_user(uint32_t state) {
 
+  // float layer_on_sound[][2] = SONG(E__NOTE(_E3));
+  // float layer_off_sound[][2] = SONG(E__NOTE(_A2));
+
   all_leds_off();
 
   uint8_t layer = biton32(state);
+  // static uint8_t last_layer;
   switch (layer) {
       case BASE:
+        // if (last_layer >= MACR) {
+        //   // PLAY_SONG(layer_off_sound);
+        // }
         all_leds_off();
         break;
       case SYMBL:
@@ -333,12 +342,17 @@ uint32_t layer_state_set_user(uint32_t state) {
         kinesis_led_2_on();
         break;
       case MACR:
+        // PLAY_SONG(layer_on_sound);
         kinesis_led_3_on();
         break;
       case MDIA:
-        kinesis_led_4_on();
+        // PLAY_SONG(layer_on_sound);
+      kinesis_led_4_on();
         break;
       case CNFG:
+  //       music_activated = true;
+  //       PLAY_SONG(layer_on_sound);
+  // music_activated = false;
         // kinesis_led_1_on();
         // kinesis_led_4_on();
         all_leds_on(); // config layer
@@ -355,5 +369,6 @@ uint32_t layer_state_set_user(uint32_t state) {
         break;
     }
 
+  // last_layer = layer;
   return state;
 };

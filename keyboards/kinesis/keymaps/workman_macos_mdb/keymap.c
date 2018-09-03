@@ -96,8 +96,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SYMB] = LAYOUT_pretty(
     XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,      XXXXXXX,  XXXXXXX, OSL(MACR), XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  TO(MDIA), TO(CNFG),
     XXXXXXX,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,                                                                   KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_TILD,
-    _______,  XXXXXXX,  XXXXXXX,  KC_EQL,   KC_UNDS,  XXXXXXX,                                                                   XXXXXXX,  KC_PLUS,  KC_MINS,  XXXXXXX,  KC_COLN,  KC_PIPE,
-    _______,  KC_LBRC,  KC_RBRC,  KC_LCBR,  KC_RCBR,  XXXXXXX,                                                                   XXXXXXX,  KC_LPRN,  KC_RPRN,  XXXXXXX,  XXXXXXX,  KC_DQT,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_EQL,   KC_UNDS,  XXXXXXX,                                                                   XXXXXXX,  KC_PLUS,  KC_MINS,  XXXXXXX,  KC_COLN,  KC_PIPE,
+    TO(MACR), KC_LBRC,  KC_RBRC,  KC_LCBR,  KC_RCBR,  XXXXXXX,                                                                   XXXXXXX,  KC_LPRN,  KC_RPRN,  XXXXXXX,  XXXXXXX,  KC_DQT,
     _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                   XXXXXXX,  XXXXXXX,  KC_LT,    KC_GT,    KC_QUES,  _______,
               MB_NONE,  MB_REDO,  MB_ALTL,  MB_ALTR,                                                                                       KC_WH_D,  KC_WH_U,  MB_TOP,   MB_BTM,
                                                       XXXXXXX,  XXXXXXX,                                               XXXXXXX,  XXXXXXX,
@@ -133,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [FUNC] = LAYOUT_pretty(
     XXXXXXX,  KC_F14,   KC_F15,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,       XXXXXXX,  KC_MUTE,  KC_VOLD,  KC_VOLU,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,                                                                     KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,
-    _______,  MB_CMDQ,  MB_CMDD,  MB_CMDR,  MB_CMDW,  MB_CMDB,                                                                   MB_CMDJ,  MB_CMDF,  MB_CMDU,  MB_CMDP,  XXXXXXX,  KC_F12,
+    XXXXXXX,  MB_CMDQ,  MB_CMDD,  MB_CMDR,  MB_CMDW,  MB_CMDB,                                                                   MB_CMDJ,  MB_CMDF,  MB_CMDU,  MB_CMDP,  XXXXXXX,  KC_F12,
     _______,  MB_CMDA,  MB_CMDS,  MB_CMDH,  MB_CMDT,  MB_CMDG,                                                                   MB_CMDY,  MB_CMDN,  MB_CMDE,  MB_CMDO,  MB_CMDI,  KC_F13,
     TO(BASE), MB_CMDZ,  MB_CMDX,  MB_CMDM,  MB_CMDC,  MB_CMDV,                                                                   MB_CMDK,  MB_CMDL,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
               XXXXXXX,  XXXXXXX,  MB_CTLT,  MB_CTRT,                                                                                       KC_PGUP,  KC_PGDN,  XXXXXXX,  XXXXXXX,
@@ -170,9 +170,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MACR] = LAYOUT_pretty(
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,     XXXXXXX,  XXXXXXX,  TO(BASE), XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    _______,  XXXXXXX,  XXXXXXX,  MAIL2,    MAIL1,    XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    _______,  XXXXXXX,  XXXXXXX,  PWD2,     PWD1,     XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  MAIL2,    MAIL1,    XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    TO(BASE), XXXXXXX,  XXXXXXX,  PWD2,     PWD1,     XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    TO(BASE), XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  TO(BASE),
               XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                                     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
                                                       XXXXXXX,  XXXXXXX,                                             XXXXXXX,  XXXXXXX,
                                                                 XXXXXXX,                                             XXXXXXX,
@@ -207,7 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MDIA] = LAYOUT_pretty(
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  TO(BASE), XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  KC_MUTE,  KC_VOLD,  KC_VOLU,  XXXXXXX,
-    _______,  XXXXXXX,  XXXXXXX,  KC_MS_U,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  KC_MS_U,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_MS_U,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  KC_MS_U,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     _______,  XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_R,  XXXXXXX,                                                                 XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_R,  XXXXXXX,  XXXXXXX,
     _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
               XXXXXXX,  XXXXXXX,  KC_BTN1,  KC_BTN2,                                                                                     KC_BTN1,  KC_BTN2,  XXXXXXX,  XXXXXXX,
@@ -245,7 +245,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [CNFG] = LAYOUT_pretty(
     EPRM,     VRSN,     CK_TOGG,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  TO(BASE),
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
               XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                                     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
@@ -261,9 +261,9 @@ const uint16_t PROGMEM fn_actions[] = {
 
 };
 
-void wait(int times) {
+void waitSome(int times) {
   for(int i=0; i<times; i++) {
-
+    _delay_ms(25);
   }
 }
 
@@ -271,65 +271,30 @@ void matrix_init_user(void) {
   layer_dependant_rgblight = false;
   all_leds_off();
 
+  int cycles = 4;
+  for (int i=1; i<=cycles; i++) {
       kinesis_led_1_on();
-      _delay_ms(50);
+      waitSome(i);
       all_leds_off();
       kinesis_led_2_on();
-      _delay_ms(50);
+      waitSome(i);
       all_leds_off();
       kinesis_led_3_on();
-      _delay_ms(50);
+      waitSome(i);
       all_leds_off();
       kinesis_led_4_on();
-      _delay_ms(50);
+      waitSome(i);
       all_leds_off();
       kinesis_led_3_on();
-      _delay_ms(50);
+      waitSome(i);
       all_leds_off();
       kinesis_led_2_on();
-      _delay_ms(50);
+      waitSome(i);
       all_leds_off();
-
-          kinesis_led_1_on();
-          _delay_ms(100);
-          all_leds_off();
-          kinesis_led_2_on();
-          _delay_ms(100);
-          all_leds_off();
-          kinesis_led_3_on();
-          _delay_ms(100);
-          all_leds_off();
-          kinesis_led_4_on();
-          _delay_ms(100);
-          all_leds_off();
-          kinesis_led_3_on();
-          _delay_ms(100);
-          all_leds_off();
-          kinesis_led_2_on();
-          _delay_ms(100);
-          all_leds_off();
-
-              kinesis_led_1_on();
-              _delay_ms(150);
-              all_leds_off();
-              kinesis_led_2_on();
-              _delay_ms(150);
-              all_leds_off();
-              kinesis_led_3_on();
-              _delay_ms(150);
-              all_leds_off();
-              kinesis_led_4_on();
-              _delay_ms(150);
-              all_leds_off();
-              kinesis_led_3_on();
-              _delay_ms(150);
-              all_leds_off();
-              kinesis_led_2_on();
-              _delay_ms(150);
-              all_leds_off();
+    }
 
   kinesis_led_1_on();
-  _delay_ms(150);
+  waitSome(cycles);
   all_leds_off();
 }
 

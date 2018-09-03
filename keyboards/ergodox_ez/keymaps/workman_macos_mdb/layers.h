@@ -2,7 +2,8 @@
 
 enum layers {
   BASE = 0,
-  SYMB,
+  SYMBL,
+  SYMBR,
   FUNC,
   MACR,
   MDIA,

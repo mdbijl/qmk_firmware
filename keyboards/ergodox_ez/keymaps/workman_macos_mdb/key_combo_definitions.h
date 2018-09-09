@@ -19,6 +19,8 @@
 #define MB_CTLT   LCTL(KC_LEFT)
 #define MB_CTRT   LCTL(KC_RIGHT)
 
+#define MB_LOCK   LSFT(LCTL(KC_POWER))
+
 // Home and end
 #define MB_TOP    LGUI(KC_UP)
 #define MB_BTM    LGUI(KC_DOWN)

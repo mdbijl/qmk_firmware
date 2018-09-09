@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * Keymap: Symbols layer
   *
   * ,-------------------------------------------------------------------------------------------------------------------.
-  * | Esc    | Brig-| Brig+|      |      |      |      |      |      |      |     |       |      |      |      |        |
+  * | Lock   | Brig-| Brig+|      |      |      |      |      |      |      |     |       |      |      |      |        |
   * |--------+------+------+------+------+------+---------------------------+------+------+------+------+------+--------|
   * | =+     |   !  |   @  |   #  |   $  |   %  |                           |   ^  |   &  |   *  |   (  |   )  |   ~    |
   * |--------+------+------+------+------+------|                           +------+------+------+------+------+--------|
@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                                 `--------------------'         `--------------------'
   */
   [SYMBL] = LAYOUT_pretty(
-    XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,      XXXXXXX,  XXXXXXX, OSL(MACR), XXXXXXX,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,
+    MB_LOCK,  KC_F14,   KC_F15,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,      XXXXXXX,  XXXXXXX, OSL(MACR), XXXXXXX,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,                                                                   KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_TILD,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_EQL,   KC_UNDS,  XXXXXXX,                                                                   XXXXXXX,  KC_PLUS,  KC_MINS,  XXXXXXX,  KC_COLN,  KC_PIPE,
     TO(MACR), KC_LBRC,  KC_RBRC,  KC_LCBR,  KC_RCBR,  XXXXXXX,                                                                   XXXXXXX,  KC_LPRN,  KC_RPRN,  XXXXXXX,  XXXXXXX,  KC_DQT,
@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [SYMBR] = LAYOUT_pretty(
-    XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,      XXXXXXX,  XXXXXXX, OSL(MACR), XXXXXXX,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,
+    MB_LOCK,  KC_F14,   KC_F15,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,      XXXXXXX,  XXXXXXX, OSL(MACR), XXXXXXX,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,                                                                   KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_TILD,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_EQL,   KC_UNDS,  XXXXXXX,                                                                   XXXXXXX,  KC_PLUS,  KC_MINS,  XXXXXXX,  KC_COLN,  KC_PIPE,
     TO(MACR), KC_LBRC,  KC_RBRC,  KC_LCBR,  KC_RCBR,  XXXXXXX,                                                                   XXXXXXX,  KC_LPRN,  KC_RPRN,  XXXXXXX,  XXXXXXX,  TO(MACR), //<----- this one is different
@@ -124,13 +124,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * Keymap: Function layer
   *
   * ,-------------------------------------------------------------------------------------------------------------------.
-  * | Esc    |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F8  |  F9  |  F10 |  F12 |      |      |      |      |        |
+  * | Power  |      |      |      |      |      |      |      |      |      |      |      |      |      |      |        |
   * |--------+------+------+------+------+------+---------------------------+------+------+------+------+------+--------|
-  * | =+     |   !  |   @  |   #  |   $  |   %  |                           |   ^  |   &  |   *  |   (  |   )  |   ~    |
+  * |        |   !  |   @  |   #  |   $  |   %  |                           |   ^  |   &  |   *  |   (  |   )  |   ~    |
   * |--------+------+------+------+------+------|                           +------+------+------+------+------+--------|
-  * | Tab    |      |      |   =  |   _  |      |                           |      |   +  |   -  |      |      |   |    |
+  * |        |      |      |   =  |   _  |      |                           |      |   +  |   -  |      |      |   |    |
   * |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
-  * |   L2   |   [  |   ]  |   {  |   }  |      |                           |      |   (  |   )  |      |      |   "    |
+  * |        |   [  |   ]  |   {  |   }  |      |                           |      |   (  |   )  |      |      |   "    |
   * |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
   * |        |      |      |      |      |      |                           |      |      |   <  |  >   |   ?  |        |
   * `--------+------+------+------+------+-------                           `------+------+------+------+------+--------'
@@ -145,11 +145,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                                 `--------------------'         `--------------------'
   */
   [FUNC] = LAYOUT_pretty(
-    XXXXXXX,  KC_F14,   KC_F15,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,                                                                     KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,
-    XXXXXXX,  MB_CMDQ,  MB_CMDD,  MB_CMDR,  MB_CMDW,  MB_CMDB,                                                                   MB_CMDJ,  MB_CMDF,  MB_CMDU,  MB_CMDP,  XXXXXXX,  KC_F12,
-    _______,  MB_CMDA,  MB_CMDS,  MB_CMDH,  MB_CMDT,  MB_CMDG,                                                                   MB_CMDY,  MB_CMDN,  MB_CMDE,  MB_CMDO,  MB_CMDI,  KC_F13,
-    TO(BASE), MB_CMDZ,  MB_CMDX,  MB_CMDM,  MB_CMDC,  MB_CMDV,                                                                   MB_CMDK,  MB_CMDL,  XXXXXXX,  XXXXXXX,  XXXXXXX,  TO(BASE),
+    KC_POWER, KC_F14,   KC_F15,   XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_F12,
+    _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_F13,
+    TO(BASE), XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  TO(BASE),
               XXXXXXX,  XXXXXXX,  MB_CTLT,  MB_CTRT,                                                                                       KC_PGUP,  KC_PGDN,  XXXXXXX,  XXXXXXX,
                                                       _______,  _______,                                               _______,  _______,
                                                                 MB_SNIP,                                               XXXXXXX,

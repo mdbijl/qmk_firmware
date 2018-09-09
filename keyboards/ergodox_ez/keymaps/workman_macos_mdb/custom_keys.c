@@ -7,15 +7,6 @@
 #include "key_combo_definitions.h"
 #include "layers.h"
 
-static bool reregister_lgui;
-static bool reregister_rgui;
-static bool reregister_lalt;
-static bool reregister_ralt;
-static bool reregister_lshift;
-// static bool reregister_rshift;
-// static bool reregister_lctrl;
-// static bool reregister_rctrl;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   reset_reregistering();
@@ -29,25 +20,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         // Alfred paste
         else if (COMMAND ) {
-          reregister_lgui = unregister_if_needed(KC_LGUI);
-          reregister_rgui = unregister_if_needed(KC_RGUI);
+          unregister_modifiers();
           SEND_STRING(SS_LCTRL(SS_LSFT(SS_LGUI("c"))));
-          reregister_if_needed();
+          reregister_modifiers();
           return false;
         }
 
         // Match
         else if (OPTION) {
-          reregister_lalt = unregister_if_needed(KC_LALT);
-          reregister_ralt = unregister_if_needed(KC_RALT);
+          unregister_modifiers();
           SEND_STRING(SS_LGUI(SS_LSFT("v")));
-          reregister_if_needed();
+          reregister_modifiers();
           return false;
         }
 
         // Normal paste
         else if (NO_MODIFIERS) {
+          unregister_modifiers();
           SEND_STRING(SS_LGUI("v"));
+          reregister_modifiers();
           return false;
         }
       }
@@ -61,25 +52,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         // Alfred snippets
         else if (COMMAND) {
-          reregister_lgui = unregister_if_needed(KC_LGUI);
-          reregister_rgui = unregister_if_needed(KC_RGUI);
+          unregister_modifiers();
           SEND_STRING(SS_LSFT(SS_LCTRL(SS_LALT(SS_LGUI("c")))));
-          reregister_if_needed();
+          reregister_modifiers();
           return false;
         }
 
         // Cut
         else if (OPTION) {
-          reregister_lalt = unregister_if_needed(KC_LALT);
-          reregister_ralt = unregister_if_needed(KC_RALT);
+          unregister_modifiers();
           SEND_STRING(SS_LGUI("x"));
-          reregister_if_needed();
+          reregister_modifiers();
           return false;
         }
 
         // Copy
         else if (NO_MODIFIERS) {
+          unregister_modifiers();
           SEND_STRING(SS_LGUI("c"));
+          reregister_modifiers();
           return false;
         }
       }
@@ -94,16 +85,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
           // Redo
           else if (OPTION) {
-            reregister_lalt = unregister_if_needed(KC_LALT);
-            reregister_ralt = unregister_if_needed(KC_RALT);
+            unregister_modifiers();
             SEND_STRING(SS_LSFT(SS_LGUI("z")));
-            reregister_if_needed();
+            reregister_modifiers();
             return false;
           }
 
           // Undo
           else if (NO_MODIFIERS) {
+            unregister_modifiers();
             SEND_STRING(SS_LGUI("z"));
+            reregister_modifiers();
             return false;
           }
         }
@@ -116,18 +108,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if (COMMAND && OPTION) { return true; }
           else if (COMMAND) {return true; }
 
-          // Redo
+          // Select none
           else if (OPTION) {
-            reregister_lalt = unregister_if_needed(KC_LALT);
-            reregister_ralt = unregister_if_needed(KC_RALT);
+            unregister_modifiers();
             SEND_STRING(SS_LSFT(SS_LGUI("a")));
-            reregister_if_needed();
+            reregister_modifiers();
             return true;
           }
 
-          // Undo
+          // Select all
           else if (NO_MODIFIERS) {
+            unregister_modifiers();
             SEND_STRING(SS_LGUI("a"));
+            reregister_modifiers();
             return true;
           }
         }
@@ -200,10 +193,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case PWD1:
       if (record->event.pressed) {
-        reregister_lshift = true; //unregister_if_needed(KC_LSHIFT);
         SEND_STRING ("M0n573r");
         layer_off (MACR);
-        reregister_if_needed();
       }
       return false;
       break;

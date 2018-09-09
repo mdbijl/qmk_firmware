@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,         KC_1,         KC_2,    KC_3,   KC_4,   KC_5,   XXXXXXX,
         KC_TAB,         KC_Q,         KC_D,    KC_R,   KC_W,   KC_B,   XXXXXXX,
         MO(FUNC),       KC_A,         KC_S,    KC_H,   KC_T,   KC_G,
-        MO(SYMB),       CTL_Z,        KC_X,    KC_M,   KC_C,   KC_V,  XXXXXXX,
+        MO(SYMBL),       CTL_Z,        KC_X,    KC_M,   KC_C,   KC_V,  XXXXXXX,
         XXXXXXX,        CB_ALL,       CB_UNDO, KC_LEFT,KC_RGHT,
                                                KC_LGUI,        KC_LALT,
                                                                CB_COPY,
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              XXXXXXX,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_GRV,
              XXXXXXX,     KC_J,   KC_F,   KC_U,   KC_P,   KC_SCLN,          KC_BSLS,
                           KC_Y,   KC_N,   KC_E,   KC_O,   KC_I,             KC_QUOT,
-             XXXXXXX,     KC_K,   KC_L,   KC_COMM,KC_DOT, CTL_SL,           MO(SYMB),
+             XXXXXXX,     KC_K,   KC_L,   KC_COMM,KC_DOT, CTL_SL,           MO(SYMBR),
                                   KC_UP,  KC_DOWN,MB_HOME,MB_END,           XXXXXXX,
              KC_RALT,     KC_RGUI,
              KC_PPLS,
@@ -75,7 +75,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                 `--------------------'       `--------------------'
      */
     // SYMBOLS
-    [SYMB] = LAYOUT_ergodox(
+    [SYMBR] = LAYOUT_ergodox(
+       // left hand
+       XXXXXXX, KC_EXLM, KC_AT,    KC_HASH, KC_DLR,  KC_PERC, XXXXXXX,
+       TO(BASE),XXXXXXX, XXXXXXX,  KC_EQL,  KC_UNDS, XXXXXXX, XXXXXXX,
+       TO(FUNC),KC_LBRC, KC_RBRC,  KC_LCBR, KC_RCBR, XXXXXXX,
+       _______, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       XXXXXXX, MB_NONE, MB_REDO,  MB_ALTL, MB_ALTR,
+                                            XXXXXXX, XXXXXXX,
+                                                     MB_CUT,
+                                   KC_DEL,  XXXXXXX, MB_MATCH,
+       // right hand
+       XXXXXXX, KC_CIRC, KC_AMPR,KC_ASTR, KC_LPRN,  KC_RPRN, KC_TILD,
+       XXXXXXX, XXXXXXX, KC_PLUS, KC_MINS, XXXXXXX, KC_COLN, KC_PIPE,
+                XXXXXXX, KC_LPRN, KC_RPRN, XXXXXXX, XXXXXXX, KC_DQT,
+       XXXXXXX, XXXXXXX, XXXXXXX, KC_LT,   KC_GT,   KC_QUES, _______,
+                         KC_WH_D, KC_WH_U, MB_TOP,  MB_BTM,  XXXXXXX,
+       XXXXXXX, XXXXXXX,
+       MB_ZMI,
+       MB_ZMO, KC_ESC,  KC_BSPC
+    ),
+
+    [SYMBL] = LAYOUT_ergodox(
        // left hand
        XXXXXXX, KC_EXLM, KC_AT,    KC_HASH, KC_DLR,  KC_PERC, XXXXXXX,
        TO(BASE),XXXXXXX, XXXXXXX,  KC_EQL,  KC_UNDS, XXXXXXX, XXXXXXX,
@@ -165,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    // left hand
    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
    TO(BASE),XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-   TO(MDIA),XXXXXXX, XXXXXXX, MAIL2,   MAIL1,   XXXXXXX,
+   TO(KPAD),XXXXXXX, XXXXXXX, MAIL2,   MAIL1,   XXXXXXX,
    TO(FUNC),XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                        XXXXXXX, XXXXXXX,
@@ -181,7 +202,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    XXXXXXX,
    XXXXXXX,XXXXXXX, XXXXXXX
 ),
-/* Keymap Media and mouse keys
+/* Keymap Media and KPADe keys
  *ergodox_ez/workman_macos_mdb @ 0.6.92-59-g9584d1-dirty
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |Brigh-|Brigh+|      |      |      |      |           |      |      |      | Mute | VolDn| VolUp|        |
@@ -202,8 +223,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-// MEDIA AND MOUSE
-[MDIA] = LAYOUT_ergodox(
+// MEDIA AND KPADE
+[KPAD] = LAYOUT_ergodox(
        XXXXXXX,  KC_F14,  KC_F15,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
        TO(BASE), XXXXXXX, XXXXXXX, KC_MS_U, XXXXXXX, XXXXXXX, XXXXXXX,
        TO(CNFG), XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX,
@@ -248,7 +269,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        RGB_W,    RGB_VAD, RGB_VAI, RGB_HUI, RGB_HUD, RGB_SAD, RGB_SAI,
        TO(BASE), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
        XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-       TO(MDIA), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       TO(KPAD), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
        XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                            XXXXXXX, XXXXXXX,
                                                     XXXXXXX,
@@ -267,7 +288,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
+    [1] = ACTION_LAYER_TAP_TOGGLE(SYMBL)                // FN1 - Momentary Layer 1 (Symbols)
 };
 
 // Runs just one time when the keyboard initializes.
@@ -313,6 +334,14 @@ uint32_t layer_state_set_user(uint32_t state) {
         #endif
         break;
       case 2:
+        ergodox_right_led_1_on();
+        #ifdef RGBLIGHT_COLOR_LAYER_1
+        if (layer_dependant_rgblight) {
+          rgblight_sethsv(RGBLIGHT_COLOR_LAYER_1);
+        }
+        #endif
+        break;
+      case 3:
         ergodox_right_led_2_on();
         #ifdef RGBLIGHT_COLOR_LAYER_2
         if (layer_dependant_rgblight) {
@@ -320,7 +349,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         }
         #endif
         break;
-      case 3:
+      case 4:
         ergodox_right_led_3_on();
         #ifdef RGBLIGHT_COLOR_LAYER_3
         if (layer_dependant_rgblight) {
@@ -328,7 +357,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         }
         #endif
         break;
-      case 4:
+      case 5:
         ergodox_right_led_1_on();
         ergodox_right_led_2_on();
         #ifdef RGBLIGHT_COLOR_LAYER_4
@@ -337,7 +366,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         }
         #endif
         break;
-      case 5:
+      case 6:
         ergodox_right_led_1_on();
         ergodox_right_led_3_on();
         #ifdef RGBLIGHT_COLOR_LAYER_5
@@ -346,7 +375,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         }
         #endif
         break;
-      case 6:
+      case 7:
         ergodox_right_led_2_on();
         ergodox_right_led_3_on();
         #ifdef RGBLIGHT_COLOR_LAYER_6
@@ -355,7 +384,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         }
         #endif
         break;
-      case 7:
+      case 8:
         ergodox_right_led_1_on();
         ergodox_right_led_2_on();
         ergodox_right_led_3_on();

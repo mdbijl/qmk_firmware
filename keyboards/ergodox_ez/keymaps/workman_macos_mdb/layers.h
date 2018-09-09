@@ -6,6 +6,6 @@ enum layers {
   SYMBR,
   FUNC,
   MACR,
-  MDIA,
+  KPAD,
   CNFG,
 };

@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TO(MACR), KC_LBRC,  KC_RBRC,  KC_LCBR,  KC_RCBR,  XXXXXXX,                                                                   XXXXXXX,  KC_LPRN,  KC_RPRN,  XXXXXXX,  XXXXXXX,  KC_DQT,
     _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                   XXXXXXX,  XXXXXXX,  KC_LT,    KC_GT,    KC_QUES,  _______,
               MB_NONE,  MB_REDO,  MB_ALTL,  MB_ALTR,                                                                                       KC_WH_D,  KC_WH_U,  MB_TOP,   MB_BTM,
-                                                      XXXXXXX,  XXXXXXX,                                               XXXXXXX,  XXXXXXX,
+                                                      _______,  _______,                                               _______,  _______,
                                                                 MB_CUT,                                                MB_ZMI,
                                             KC_DEL,   XXXXXXX,  MB_MATCH,                                              MB_ZMO,   KC_ESC,   KC_BSPC
   ),
@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TO(MACR), KC_LBRC,  KC_RBRC,  KC_LCBR,  KC_RCBR,  XXXXXXX,                                                                   XXXXXXX,  KC_LPRN,  KC_RPRN,  XXXXXXX,  XXXXXXX,  TO(MACR), //<----- this one is different
     _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                   XXXXXXX,  XXXXXXX,  KC_LT,    KC_GT,    KC_QUES,  _______,
               MB_NONE,  MB_REDO,  MB_ALTL,  MB_ALTR,                                                                                       KC_WH_D,  KC_WH_U,  MB_TOP,   MB_BTM,
-                                                      XXXXXXX,  XXXXXXX,                                               XXXXXXX,  XXXXXXX,
+                                                      _______,  _______,                                               _______,  _______,
                                                                 MB_CUT,                                                MB_ZMI,
                                             KC_DEL,   XXXXXXX,  MB_MATCH,                                              MB_ZMO,   KC_ESC,   KC_BSPC
   ),
@@ -151,9 +151,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  MB_CMDA,  MB_CMDS,  MB_CMDH,  MB_CMDT,  MB_CMDG,                                                                   MB_CMDY,  MB_CMDN,  MB_CMDE,  MB_CMDO,  MB_CMDI,  KC_F13,
     TO(BASE), MB_CMDZ,  MB_CMDX,  MB_CMDM,  MB_CMDC,  MB_CMDV,                                                                   MB_CMDK,  MB_CMDL,  XXXXXXX,  XXXXXXX,  XXXXXXX,  TO(BASE),
               XXXXXXX,  XXXXXXX,  MB_CTLT,  MB_CTRT,                                                                                       KC_PGUP,  KC_PGDN,  XXXXXXX,  XXXXXXX,
-                                                      KC_LGUI,  XXXXXXX,                                               KC_RALT,  XXXXXXX,
+                                                      _______,  _______,                                               _______,  _______,
                                                                 MB_SNIP,                                               XXXXXXX,
-                                            KC_SPC,   KC_LSFT,  MB_PASTE,                                              KC_LCTRL, XXXXXXX,  XXXXXXX
+                                            KC_SPC,   KC_LSFT,  MB_PASTE,                                              KC_RCTRL, XXXXXXX,  XXXXXXX
   ),
 
   /****************************************************************************************************

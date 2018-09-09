@@ -7,20 +7,91 @@
 #include "key_combo_definitions.h"
 #include "layers.h"
 
+
+enum triplet {
+  commandOption,
+  command,
+  option,
+  noModifiers
+};
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   reset_reregistering();
 
   switch (keycode) {
 
-    case CB_PASTE:
+    case CB_COPY: {
+      static int copyModifiersPressed;
+
+        // Key down
+        if (record->event.pressed) {
+
+          if (COMMAND && OPTION) {
+            copyModifiersPressed = commandOption;
+            return true;
+          }
+
+          // Alfred snippets
+          else if (COMMAND) {
+            copyModifiersPressed = command;
+            unregister_and_store_modifiers();
+            SEND_STRING(SS_LSFT(SS_LCTRL(SS_LALT(SS_LGUI("c")))));
+            reregister_modifiers();
+            return false;
+          }
+
+          // Cut
+          else if (OPTION) {
+            copyModifiersPressed = option;
+            unregister_modifiers();
+            register_code(KC_LGUI);
+            register_code(KC_X);
+            return false;
+          }
+
+          // Copy
+          else if (NO_MODIFIERS) {
+            copyModifiersPressed = noModifiers;
+            unregister_modifiers();
+            register_code(KC_LGUI);
+            register_code(KC_C);
+            return false;
+          }
+
+        // Key up
+        } else {
+          switch (copyModifiersPressed) {
+            case option:
+              unregister_code(KC_X);
+              unregister_modifiers();
+              break;
+            case noModifiers:
+              unregister_code(KC_C);
+              unregister_modifiers();
+              break;
+          }
+        }
+        return true;
+    }
+      break;
+
+
+    case CB_PASTE: {
+      static int pasteModifiersPressed;
+
+      // Key down
       if (record->event.pressed) {
 
-        if (COMMAND && OPTION) { return true; }
+        if (COMMAND && OPTION) {
+          pasteModifiersPressed = commandOption;
+          return true;
+        }
 
         // Alfred paste
         else if (COMMAND ) {
-          unregister_modifiers();
+          pasteModifiersPressed = command;
+          unregister_and_store_modifiers();
           SEND_STRING(SS_LCTRL(SS_LSFT(SS_LGUI("c"))));
           reregister_modifiers();
           return false;
@@ -28,103 +99,131 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         // Match
         else if (OPTION) {
+          pasteModifiersPressed = option;
           unregister_modifiers();
-          SEND_STRING(SS_LGUI(SS_LSFT("v")));
-          reregister_modifiers();
+          register_code(KC_LGUI);
+          register_code(KC_LSHIFT);
+          register_code(KC_V);
           return false;
         }
 
         // Normal paste
         else if (NO_MODIFIERS) {
+          pasteModifiersPressed = noModifiers;
           unregister_modifiers();
-          SEND_STRING(SS_LGUI("v"));
-          reregister_modifiers();
+          register_code(KC_LGUI);
+          register_code(KC_V);
           return false;
+        }
+
+      // Key up
+      } else {
+        switch (pasteModifiersPressed) {
+          case option:
+          case noModifiers:
+            unregister_code(KC_V);
+            unregister_modifiers();
+            break;
         }
       }
       return true;
+    }
       break;
 
-    case CB_COPY:
-      if (record->event.pressed) {
+      case CB_UNDO: {
+        static int undoModifiersPressed;
 
-        if (COMMAND && OPTION) { return true; }
-
-        // Alfred snippets
-        else if (COMMAND) {
-          unregister_modifiers();
-          SEND_STRING(SS_LSFT(SS_LCTRL(SS_LALT(SS_LGUI("c")))));
-          reregister_modifiers();
-          return false;
-        }
-
-        // Cut
-        else if (OPTION) {
-          unregister_modifiers();
-          SEND_STRING(SS_LGUI("x"));
-          reregister_modifiers();
-          return false;
-        }
-
-        // Copy
-        else if (NO_MODIFIERS) {
-          unregister_modifiers();
-          SEND_STRING(SS_LGUI("c"));
-          reregister_modifiers();
-          return false;
-        }
-      }
-      return true;
-      break;
-
-      case CB_UNDO:
         if (record->event.pressed) {
 
-          if (COMMAND && OPTION) { return true; }
-          else if (COMMAND) { return true; }
+          if (COMMAND && OPTION) {
+            undoModifiersPressed = commandOption;
+            return true;
+          }
+
+          else if (COMMAND) {
+            undoModifiersPressed = command;
+            return true;
+          }
 
           // Redo
           else if (OPTION) {
+            undoModifiersPressed = option;
             unregister_modifiers();
-            SEND_STRING(SS_LSFT(SS_LGUI("z")));
-            reregister_modifiers();
+            register_code(KC_LGUI);
+            register_code(KC_LSHIFT);
+            register_code(KC_Z);
             return false;
           }
 
           // Undo
           else if (NO_MODIFIERS) {
+            undoModifiersPressed = noModifiers;
             unregister_modifiers();
-            SEND_STRING(SS_LGUI("z"));
-            reregister_modifiers();
+            register_code(KC_LGUI);
+            register_code(KC_Z);
             return false;
+          }
+
+        // Key up
+        } else {
+          switch (undoModifiersPressed) {
+            case option:
+            case noModifiers:
+              unregister_code(KC_Z);
+              unregister_modifiers();
+              break;
           }
         }
         return true;
+      }
         break;
 
-      case CB_ALL:
+      case CB_ALL: {
+        static int selectModifiersPressed;
+
+        // Key down
         if (record->event.pressed) {
 
-          if (COMMAND && OPTION) { return true; }
-          else if (COMMAND) {return true; }
+          if (COMMAND && OPTION) {
+            selectModifiersPressed = commandOption;
+            return true;
+          }
+          else if (COMMAND) {
+            selectModifiersPressed = command;
+            return true;
+          }
 
           // Select none
           else if (OPTION) {
+            selectModifiersPressed = option;
             unregister_modifiers();
-            SEND_STRING(SS_LSFT(SS_LGUI("a")));
-            reregister_modifiers();
-            return true;
+            register_code(KC_LGUI);
+            register_code(KC_LSHIFT);
+            register_code(KC_A);
+            return false;
           }
 
           // Select all
           else if (NO_MODIFIERS) {
+            selectModifiersPressed = noModifiers;
             unregister_modifiers();
-            SEND_STRING(SS_LGUI("a"));
-            reregister_modifiers();
-            return true;
+            register_code(KC_LGUI);
+            register_code(KC_A);
+            return false;
+          }
+
+        // Key up
+        } else {
+          switch (selectModifiersPressed) {
+            case option:
+            case noModifiers:
+              unregister_code(KC_A);
+              unregister_modifiers();
+              break;
           }
         }
-        return false;
+        return true;
+      }
         break;
 
     case EPRM:

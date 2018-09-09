@@ -33,6 +33,17 @@ bool unregister_if_needed(uint8_t code) {
 }
 
 void unregister_modifiers(void) {
+  unregister_code(KC_LGUI);
+  unregister_code(KC_RGUI);
+  unregister_code(KC_LALT);
+  unregister_code(KC_RALT);
+  unregister_code(KC_LCTRL);
+  unregister_code(KC_RCTRL);
+  unregister_code(KC_LSHIFT);
+  unregister_code(KC_RSHIFT);
+}
+
+void unregister_and_store_modifiers(void) {
   reregister_lgui = unregister_if_needed(KC_LGUI);
   reregister_rgui = unregister_if_needed(KC_RGUI);
   reregister_lalt = unregister_if_needed(KC_LALT);

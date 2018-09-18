@@ -21,6 +21,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
 
+    //
+    // Custom keys
+    //
+
+      // Copy
+      // Cmd + Copy     = Alfred snippets
+      // Option + Copy  = Cut
     case CB_COPY: {
       static int copyModifiersPressed;
 
@@ -77,6 +84,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 
 
+      // Paste
+      // Cmd + Paste     = Alfred multi paste
+      // Option + Paste  = Match
     case CB_PASTE: {
       static int pasteModifiersPressed;
 
@@ -130,6 +140,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
       break;
 
+      // Undo
+      // Option + Undo  = Redo
       case CB_UNDO: {
         static int undoModifiersPressed;
 
@@ -178,6 +190,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
         break;
 
+        // Select          = Select All
+        // Option + Select = Select None
       case CB_ALL: {
         static int selectModifiersPressed;
 
@@ -226,6 +240,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
         break;
 
+        //
+        // QMK
+        //
     case EPRM:
       if (record->event.pressed) {
         eeconfig_init();
@@ -238,6 +255,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+
+      //
+      // RGB (ErgoDox)
+      //
     case RGB_ON:
       if (record->event.pressed) {
         #ifdef RGBLIGHT_ENABLE
@@ -276,6 +297,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
         break;
       }
+
+      //
+      // Macros
+      //
     case MAIL1:
       if (record->event.pressed) {
         SEND_STRING ("maurice@debijl.net");
@@ -311,18 +336,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
-  // MACRODOWN only works in this function
-  switch(id) {
-    case 0:
-      if (record->event.pressed) {
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      break;
-    case 1:
-      if (record->event.pressed) { // For resetting EEPROM
-        eeconfig_init();
-      }
-      break;
-  }
+  // // MACRODOWN only works in this function
+  // switch(id) {
+  //   case 0:
+  //     if (record->event.pressed) {
+  //       SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+  //     }
+  //     break;
+  //   case 1:
+  //     if (record->event.pressed) { // For resetting EEPROM
+  //       eeconfig_init();
+  //     }
+  //     break;
+  // }
   return MACRO_NONE;
 };

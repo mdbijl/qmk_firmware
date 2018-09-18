@@ -20,7 +20,9 @@
 #define MB_CTRT   LCTL(KC_RIGHT)
 
 // Mac specific
-#define MB_LOCK   LSFT(LCTL(KC_POWER))
+#define MB_LOCK  LCTL(LSFT(KC_POWER))
+#define MB_SLEEP   LGUI(LALT(KC_POWER))
+#define MB_RESTART LGUI(LCTL(KC_POWER))
 #define MB_FQUIT  LALT(LGUI(KC_ESC))
 
 // Handheld Scientific BT-500 bluetoothadapter: command mode

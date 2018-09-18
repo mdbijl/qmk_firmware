@@ -37,9 +37,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *
   * Keymap: Base layer
   *
-  * ,-------------------------------------------------------------------------------------------------------------------.
-  * | Esc    |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F8  |  F9  |  F10 |  F12 | MUTE | VOL- | VOL+ |      |        |
-  * |--------+------+------+------+------+------+---------------------------+------+------+------+------+------+--------|
+  * ,--------------------------------------------+                         +--------------------------------------------.
+  * | Esc| F1 | F2 | F3 | F4 | F5 | F6 | F7 | F8 |                         | F9 | F10| F11| F12|MUTE|VOL-|VOL+|KYPD|CNFG|
+  * `----+----+----+----+----+----+----+----+----'                         `----+----+----+----+----+----+----+----+----'
+  * ,--------+------+------+------+------+------+                           +------+------+------+------+------+--------.
   * | =+     |  1!  |  2@  |  3#  |  4$  |  5%  |                           |  6^  |  7&  |  8*  |  9(  |  0)  |   `    |
   * |--------+------+------+------+------+------|                           +------+------+------+------+------+--------|
   * | Tab    |   Q  |   D  |   R  |   W  |   B  |                           |   J  |   F  |   U  |   P  |  ;:  | \|     |
@@ -47,8 +48,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |   L2   |   A  |   S  |   H  |   T  |   G  |                           |   Y  |   N  |   E  |   O  |   I  | '"     |
   * |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
   * |   L1   |ctrl Z|   X  |   M  |   C  |   V  |                           |   K  |   L  |  ,.  |  .>  |ctrl /|   L1   |
-  * `--------+------+------+------+------+-------                           `------+------+------+------+------+--------'
-  *          | S.All| Undo | Left | Right|                                         | Up   | Down |  [{  |  ]}  |
+  * `--------+------+------+------+------+------'                          `------+------+------+------+------+--------'
+  *          | S.All| Undo | Left | Right|                                         | Up   | Down | Home | End  |
   *          `---------------------------'                                         `---------------------------'
   *                                        ,-------------.         ,-------------.
   *                                        |  GUI | Alt  |         | Gui  | Alt  |
@@ -74,9 +75,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *
   * Keymap: Symbols layer
   *
-  * ,-------------------------------------------------------------------------------------------------------------------.
-  * | Lock   | Brig-| Brig+|      |      |      |      |      |      |      |     |       |      |      |      |        |
-  * |--------+------+------+------+------+------+---------------------------+------+------+------+------+------+--------|
+  * ,--------------------------------------------+                         +--------------------------------------------.
+  * |Lock|Bri-|Bri+|    |    |    |    |    |    |                         |    |    |    |MACR|MUTE|VOL-|VOL+|KYPD|CNFG|
+  * `----+----+----+----+----+----+----+----+----'                         `----+----+----+----+----+----+----+----+----'
+  * ,--------+------+------+------+------+------+                           +------+------+------+------+------+--------.
   * | =+     |   !  |   @  |   #  |   $  |   %  |                           |   ^  |   &  |   *  |   (  |   )  |   ~    |
   * |--------+------+------+------+------+------|                           +------+------+------+------+------+--------|
   * | Tab    |      |      |   =  |   _  |      |                           |      |   +  |   -  |      |   :  |   |    |
@@ -96,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                                 `--------------------'         `--------------------'
   */
   [SYMBL] = LAYOUT_pretty(
-    MB_LOCK,  KC_F14,   KC_F15,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,      MB_FQUIT, XXXXXXX, OSL(MACR), XXXXXXX,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,
+    MB_SLEEP,  KC_F14,   KC_F15,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,      MB_FQUIT, XXXXXXX, OSL(MACR), XXXXXXX,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,                                                                   KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_TILD,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_EQL,   KC_UNDS,  XXXXXXX,                                                                   XXXXXXX,  KC_PLUS,  KC_MINS,  XXXXXXX,  KC_COLN,  KC_PIPE,
     TO(MACR), KC_LBRC,  KC_RBRC,  KC_LCBR,  KC_RCBR,  XXXXXXX,                                                                   XXXXXXX,  KC_LPRN,  KC_RPRN,  XXXXXXX,  XXXXXXX,  KC_DQT,
@@ -123,9 +125,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *
   * Keymap: Function layer
   *
-  * ,-------------------------------------------------------------------------------------------------------------------.
-  * | Power  |      |      |      |      |      |      |      |      |      |      |      |      |      |      |        |
-  * |--------+------+------+------+------+------+---------------------------+------+------+------+------+------+--------|
+  * ,--------------------------------------------+                         +--------------------------------------------.
+  * |Powr|Bri-|Bri+|    |    |    |    |    |    |                         |    |    |    |MACR|MUTE|VOL-|VOL+|KYPD|CNFG|
+  * `----+----+----+----+----+----+----+----+----'                         `----+----+----+----+----+----+----+----+----'
+  * ,--------+------+------+------+------+------+---------------------------+------+------+------+------+------+--------.
   * |        |   !  |   @  |   #  |   $  |   %  |                           |   ^  |   &  |   *  |   (  |   )  |   ~    |
   * |--------+------+------+------+------+------|                           +------+------+------+------+------+--------|
   * |        |      |      |   =  |   _  |      |                           |      |   +  |   -  |      |      |   |    |
@@ -145,10 +148,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                                 `--------------------'         `--------------------'
   */
   [FUNC] = LAYOUT_pretty(
-    KC_POWER, KC_F14,   KC_F15,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,       XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,
+    KC_POWER, KC_F14,   KC_F15,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,       XXXXXXX,  XXXXXXX, OSL(MACR), XXXXXXX,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_F12,
-    _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_F13,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     TO(BASE), XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  TO(BASE),
               XXXXXXX,  XXXXXXX,  MB_CTLT,  MB_CTRT,                                                                                       KC_PGUP,  KC_PGDN,  XXXXXXX,  XXXXXXX,
                                                       _______,  _______,                                               _______,  _______,
@@ -160,7 +163,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *
   * Keymap: Macro layer
   *
-  * ,-------------------------------------------------------------------------------------------------------------------.
+  * ,--------------------------------------------+                         +--------------------------------------------.
+  * |    |   |     |    |    |    |    |    |    |                         |    |    |    |MACR|    |    |    |    |    |
+  * `----+----+----+----+----+----+----+----+----'                         `----+----+----+----+----+----+----+----+----'
+  * ,--------+------+------+------+------+------+---------------------------+------+------+------+------+------+--------.
   * |        |      |      |      |      |      |      |      |      |      |      |      |      |      |      |        |
   * |--------+------+------+------+------+------+---------------------------+------+------+------+------+------+--------|
   * |        |      |      |      |      |      |                           |      |      |      |      |      |        |
@@ -236,7 +242,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * Keymap: Config layer
   *
   * ,-------------------------------------------------------------------------------------------------------------------.
-  * |  Eprom |Vrsion|      |      |      |      |      |      | Click|      |      |      |      |      |      |        |
+  * |  Vrsion|      |      |      |      |      |      |      | Click|BTooth|      |      |      |      |      |        |
   * |--------+------+------+------+------+------+---------------------------+------+------+------+------+------+--------|
   * |        |      |      |      |      |      |                           |      |      |      |      |      |        |
   * |--------+------+------+------+------+------|                           +------+------+------+------+------+--------|

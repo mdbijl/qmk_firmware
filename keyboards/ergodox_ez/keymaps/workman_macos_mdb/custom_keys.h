@@ -12,6 +12,9 @@ enum custom_keycodes {
   MAIL2,
   PWD1,
   PWD2,
+  PWD3,
+  NAME1,
+  NAME2,
   RGB_ON,
   RGB_OFF,
   RGB_LYR,   // Layer dependant underglow off-

@@ -317,14 +317,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case PWD1:
       if (record->event.pressed) {
-        SEND_STRING ("M0n573r");
+        SEND_STRING ("M13k573r");
         layer_off (MACR);
       }
       return false;
       break;
     case PWD2:
       if (record->event.pressed) {
-        SEND_STRING ("M13k573r");
+        SEND_STRING ("M0n573r");
+        layer_off (MACR);
+      }
+      return false;
+      break;
+    case PWD3:
+      if (record->event.pressed) {
+        SEND_STRING ("0r1c355");
+        layer_off (MACR);
+      }
+      return false;
+      break;
+    case NAME1:
+      if (record->event.pressed) {
+        SEND_STRING ("Maurice");
+        layer_off (MACR);
+      }
+      return false;
+      break;
+    case NAME2:
+      if (record->event.pressed) {
+        SEND_STRING ("maurice");
         layer_off (MACR);
       }
       return false;

@@ -336,31 +336,24 @@ uint32_t layer_state_set_user(uint32_t state) {
         // if (last_layer >= MACR) {
         //   // PLAY_SONG(layer_off_sound);
         // }
-        //all_leds_off();
-        kinesis_led_1_on();
+        all_leds_off();
         break;
       case SYMBL:
         kinesis_led_1_on();
-        kinesis_led_2_on();
         break;
       case SYMBR:
         kinesis_led_1_on();
-        kinesis_led_2_on();
         break;
       case FUNC:
-        kinesis_led_1_on();
-        kinesis_led_3_on();
+        kinesis_led_2_on();
         break;
       case MACR:
         // PLAY_SONG(layer_on_sound);
-        kinesis_led_1_on();
-        kinesis_led_2_on();
         kinesis_led_3_on();
         break;
       case KPAD:
         // PLAY_SONG(layer_on_sound);
-        kinesis_led_1_on();
-        kinesis_led_4_on();
+      kinesis_led_4_on();
         break;
       case CNFG:
   //       music_activated = true;

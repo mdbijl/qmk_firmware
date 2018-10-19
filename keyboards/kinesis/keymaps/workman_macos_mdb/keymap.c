@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               MB_NONE,  MB_REDO,  MB_ALTL,  MB_ALTR,                                                                                       KC_WH_D,  KC_WH_U,  MB_TOP,   MB_BTM,
                                                       _______,  _______,                                               _______,  _______,
                                                                 MB_CUT,                                                MB_ZMI,
-                                            KC_DEL,   XXXXXXX,  MB_MATCH,                                              MB_ZMO,   KC_ESC,   _______
+                                            KC_SPC,   XXXXXXX,  MB_MATCH,                                              MB_ZMO,   KC_ESC,   _______
   ),
 
   [SYMBR] = LAYOUT_pretty(

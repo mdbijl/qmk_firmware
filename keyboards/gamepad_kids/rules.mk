@@ -54,6 +54,7 @@ NKRO_ENABLE ?= no		# USB Nkey Rollover - if this doesn't work, see here: https:/
 BACKLIGHT_ENABLE ?= no  # Enable keyboard backlight functionality
 AUDIO_ENABLE ?= no
 RGBLIGHT_ENABLE ?= no
+MUSIC_ENABLE ?= no
 MIDI_ENABLE ?= no
 BLUETOOTH_ENABLE ?= no
 API_SYSEX_ENABLE ?= no

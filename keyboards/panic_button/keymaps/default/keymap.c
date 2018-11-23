@@ -1,11 +1,12 @@
 #include "kb.h"
 
 
+#define MB_BUILD  LGUI(KC_B)
 #define MB_FQUIT  LALT(LGUI(KC_ESC))
 
 enum { TD_PANIC = 0 };
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_PANIC] = ACTION_TAP_DANCE_DOUBLE(KC_ENTER, MB_FQUIT)
+    [TD_PANIC] = ACTION_TAP_DANCE_DOUBLE(MB_BUILD, MB_FQUIT)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

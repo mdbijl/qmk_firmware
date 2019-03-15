@@ -315,6 +315,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case MAIL3:
+      if (record->event.pressed) {
+        SEND_STRING ("maurice@thecloseapp.com");
+        layer_off (MACR);
+      }
+      return false;
+      break;
     case PWD1:
       if (record->event.pressed) {
         SEND_STRING ("M0n573r");
@@ -350,6 +357,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+
+    case TEL1:
+      if (record->event.pressed) {
+        SEND_STRING ("+31652084044");
+        layer_off (MACR);
+      }
+      return false;
+      break;
+
+    case TEL2:
+      if (record->event.pressed) {
+        SEND_STRING ("555555555");
+        layer_off (MACR);
+      }
+      return false;
+      break;
+
   }
   return true;
 }

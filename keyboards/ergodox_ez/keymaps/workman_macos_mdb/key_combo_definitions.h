@@ -2,6 +2,8 @@
 #define CTL_Z  LCTL_T(KC_Z)
 #define CTL_SL RCTL_T(KC_SLASH)
 #define CTL_MN RCTL_T(KC_PMNS)
+#define ALT_X  LALT_T(KC_X)
+#define ALT_DOT  LALT_T(KC_DOT)
 
 // Copy, paste, undo, select
 #define MB_COPY   LGUI(KC_C)

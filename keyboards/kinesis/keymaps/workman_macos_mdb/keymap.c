@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,                                                                      KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_GRV,
     KC_TAB,   KC_Q,     KC_D,     KC_R,     KC_W,     KC_B,                                                                      KC_J,     KC_F,     KC_U,     KC_P,     KC_SCLN,  KC_BSLS,
     TT(FUNC), KC_A,     KC_S,     KC_H,     KC_T,     KC_G,                                                                      KC_Y,     KC_N,     KC_E,     KC_O,     KC_I,     KC_QUOT,
-    MO(SYMBL),CTL_Z,    KC_X,     KC_M,     KC_C,     KC_V,                                                                      KC_K,     KC_L,     KC_COMM,  KC_DOT,   CTL_SL,   MO(SYMBR),
+    MO(SYMBL),CTL_Z,    ALT_X,     KC_M,     KC_C,     KC_V,                                                                     KC_K,     KC_L,     KC_COMM,  ALT_DOT,  CTL_SL,   MO(SYMBR),
               CB_ALL,   CB_UNDO,  KC_LEFT,  KC_RGHT,                                                                                       KC_UP,    KC_DOWN,  MB_HOME,  MB_END,
                                                       KC_LGUI,  KC_LALT,                                               KC_RALT,  KC_RGUI,
                                                                 CB_COPY,                                               KC_PPLS,
@@ -148,12 +148,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                                 `--------------------'         `--------------------'
   */
   [FUNC] = LAYOUT_pretty(
-    _______, _______,   _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,       _______,  XXXXXXX, OSL(MACR), XXXXXXX,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,
+    MB_LOCK,  KC_F14,   KC_F15,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,       MB_FQUIT, XXXXXXX, OSL(MACR), XXXXXXX,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     TO(BASE), XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  TO(BASE),
-              XXXXXXX,  XXXXXXX,  MB_CALT,  MB_CART,                                                                                       MB_CAUP,  MB_CADN,  XXXXXXX,  XXXXXXX,
+              XXXXXXX,  XXXXXXX,  MB_CTLT,  MB_CTRT,                                                                                       KC_PGUP,  KC_PGDN,  XXXXXXX,  XXXXXXX,
                                                       _______,  _______,                                               _______,  _______,
                                                                 MB_SNIP,                                               XXXXXXX,
                                             KC_DEL,   KC_LSFT,  MB_PASTE,                                              KC_RCTRL, XXXXXXX,  XXXXXXX

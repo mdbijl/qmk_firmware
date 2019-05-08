@@ -19,6 +19,11 @@
 #define MB_CTLT   LCTL(KC_LEFT)
 #define MB_CTRT   LCTL(KC_RIGHT)
 
+#define MB_CART   LCTL(LALT(KC_RIGHT))
+#define MB_CALT   LCTL(LALT(KC_LEFT))
+#define MB_CAUP   LCTL(LALT(KC_UP))
+#define MB_CADN   LCTL(LALT(KC_DOWN))
+
 // Mac specific
 #define MB_LOCK  LCTL(LSFT(KC_POWER))
 #define MB_SLEEP   LGUI(LALT(KC_POWER))

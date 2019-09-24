@@ -22,6 +22,7 @@ enum custom_keycodes {
   RGB_OFF,
   RGB_LYR,   // Layer dependant underglow off-
   RGB_W,     // White
+  HITBIT,
 };
 
 static bool layer_dependant_rgblight;

@@ -11,6 +11,7 @@ enum custom_keycodes {
   MAIL1,
   MAIL2,
   MAIL3,
+  MAIL4,
   PWD1,
   PWD2,
   PWD3,
@@ -22,6 +23,7 @@ enum custom_keycodes {
   RGB_OFF,
   RGB_LYR,   // Layer dependant underglow off-
   RGB_W,     // White
+  HITB_IT,
 };
 
 static bool layer_dependant_rgblight;

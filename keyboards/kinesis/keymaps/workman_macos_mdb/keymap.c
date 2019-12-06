@@ -230,10 +230,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_MS_U,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  KC_KP_7,  KC_KP_8,  KC_KP_9,     KC_KP_MINUS,  XXXXXXX,
     TO(FUNC), XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_R,  XXXXXXX,                                                                 XXXXXXX,  KC_KP_4,  KC_KP_5,  KC_KP_6,     KC_KP_PLUS,  TO(BASE),
     TO(BASE), XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                 XXXXXXX,  KC_KP_1,  KC_KP_2,  KC_KP_3,     KC_KP_ENTER,  TO(BASE),
-              XXXXXXX,  XXXXXXX,  KC_BTN1,  KC_BTN2,                                                                                     XXXXXXX,  XXXXXXX,  KC_KP_DOT,   KC_KP_ENTER,
+              XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,                                                                                     XXXXXXX,  XXXXXXX,  KC_KP_DOT,   KC_KP_ENTER,
                                                       XXXXXXX,  XXXXXXX,                                             XXXXXXX,  XXXXXXX,
                                                                 XXXXXXX,                                             XXXXXXX,
-                                            XXXXXXX,  XXXXXXX,  XXXXXXX,                                             XXXXXXX,  KC_KP_ENTER,  KC_KP_0
+                                            KC_BTN1,  KC_BTN2,  XXXXXXX,                                             XXXXXXX,  KC_KP_ENTER,  KC_KP_0
   )
   ,
 
@@ -314,7 +314,7 @@ void matrix_init_user(void) {
       all_leds_off();
     }
 
-  kinesis_led_1_on();
+  all_leds_on();
   waitSome(cycles);
   all_leds_off();
 }

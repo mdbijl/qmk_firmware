@@ -364,7 +364,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case HITB_IT:
+    case HITBIT:
       if (record->event.pressed) {
         SEND_STRING ("hitb.it");
         layer_off (MACR);
@@ -386,15 +386,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-
-    case HITBIT:
-      if (record->event.pressed) {
-        SEND_STRING ("hitb.it");
-        layer_off (MACR);
-      }
-      return false;
-      break;
-
   }
   return true;
 }
